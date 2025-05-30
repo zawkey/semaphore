@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: "Fakt Pro",-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -22,3 +22,11 @@ code {
   color: #3730a3 !important;
   box-shadow: 0 2px 8px 0 rgba(55,48,163,0.08);
 }
+
+.sidebar-hidden .sidebar-body{
+  display: none;
+}
+.sidebar-hidden{
+  height: auto;
+}
+  
