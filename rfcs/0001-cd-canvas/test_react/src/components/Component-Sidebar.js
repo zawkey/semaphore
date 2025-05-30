@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import gitHub from "../images/github.svg";
 import gitLab from "../images/gitlab.svg";
-import semaphoreLogo from "../images/semaphore-logo-sign.svg";
+import semaphoreLogo from "../images/semaphore-logo-mark.svg";
 
 const ComponentSidebar = ({ onAddNode, onDragStart }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -60,7 +60,7 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
               </i>
             </div>
             <div className="categories" style={{ display: isNodesCollapsed ? 'none' : 'block' }}>
-              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2">
+              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2" onDragStart={(e) => onDragStart(e, 'deploymentCard')} draggable="true">
                 <div className="flex flex-col items-start relative visible">
                   <div className="flex flex-col items-center justify-center relative visible">
                     <span className="material-symbols-outlined dark-red text-4xl visible">rocket_launch </span>
@@ -79,11 +79,11 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   </div>
                 </div>
                 <div className="invisible flex items-center icons">
-                  <button className="add-node material-symbols-outlined f3 gray mr-2">add</button>
+                  <button className="add-node material-symbols-outlined f3 gray mr-2" onClick={() => onAddNode('deploymentCard', { x: 0, y: 0 })}>add</button>
                   <button className="drag-node material-symbols-outlined f3 gray">drag_indicator</button>
                 </div>
               </a>
-              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2" onDragStart={(e) => onDragStart(e, 'githubIntegration')} draggable="true">
+              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2" onDragStart={(e) => onDragStart(e, 'deploymentCard')} draggable="true">
                 <div className="flex flex-col items-start relative">
                   <div className="flex flex-col items-center justify-center relative">
                     <span className="material-symbols-outlined dark-green text-4xl">local_police </span>
@@ -102,7 +102,7 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   </div>
                 </div>
                 <div className="invisible flex items-center icons">
-                  <button className="add-node material-symbols-outlined f3 gray mr-2" onClick={() => onAddNode('githubIntegration', { x: 100, y: 100 })}>add</button>
+                  <button className="add-node material-symbols-outlined f3 gray mr-2" onClick={() => onAddNode('deploymentCard', { x: 0, y: 0 })}>add</button>
                   <button className="drag-node material-symbols-outlined f3 gray" draggable="true">drag_indicator</button>
                 </div>
               </a>
@@ -121,7 +121,7 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
               </i>
             </div>
             <div className="categories" style={{ display: isIntegrationsCollapsed ? 'none' : 'block' }}>
-              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2">
+              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2" onDragStart={(e) => onDragStart(e, 'githubIntegration')} draggable="true">
                 <div className="flex flex-col items-start relative visible">
                   <div className="flex flex-col items-center justify-center relative visible">
                     <img src={gitHub} alt="GitHub" />
@@ -140,11 +140,11 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   </div>
                 </div>
                 <div className="invisible flex items-center icons">
-                  <button className="add-node material-symbols-outlined f3 gray mr-2">add</button>
+                  <button className="add-node material-symbols-outlined f3 gray mr-2" onClick={() => onAddNode('githubIntegration', { x: 0, y: 0 })}>add</button>
                   <button className="drag-node material-symbols-outlined f3 gray">drag_indicator</button>
                 </div>
               </a>
-              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2">
+              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2" onDragStart={(e) => onDragStart(e, 'githubIntegration')} draggable="true">
                 <div className="flex flex-col items-start relative">
                   <div className="flex flex-col items-center justify-center relative">
                     <img src={semaphoreLogo} alt="Semaphore project" />
@@ -163,11 +163,11 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   </div>
                 </div>
                 <div className="invisible flex items-center icons">
-                  <button className="add-node material-symbols-outlined f3 gray mr-2">add</button>
+                  <button className="add-node material-symbols-outlined f3 gray mr-2" onClick={() => onAddNode('githubIntegration', { x: 0, y: 0 })}>add</button>
                   <button className="drag-node material-symbols-outlined f3 gray">drag_indicator</button>
                 </div>
               </a>
-              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2">
+              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2" onDragStart={(e) => onDragStart(e, 'githubIntegration')} draggable="true">
                 <div className="flex flex-col items-start relative">
                   <div className="flex flex-col items-center justify-center relative">
                     <img src={gitLab} alt="GitLab" />
@@ -186,7 +186,7 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   </div>
                 </div>
                 <div className="invisible flex items-center icons">
-                  <button className="add-node material-symbols-outlined f3 gray mr-2">add</button>
+                  <button className="add-node material-symbols-outlined f3 gray mr-2" onClick={() => onAddNode('githubIntegration', { x: 0, y: 0 })}>add</button>
                   <button className="drag-node material-symbols-outlined f3 gray">drag_indicator</button>
                 </div>
               </a>

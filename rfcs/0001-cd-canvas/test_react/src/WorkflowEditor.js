@@ -1324,71 +1324,149 @@ function WorkflowEditor() {
 
   // Handle node addition from sidebar
   const handleAddNode = (type, position) => {
+    console.log(position);
     const newId = generateStageId(stages);
-    const newNode = {
-      id: newId,
-      type: 'githubIntegration',
-      data: {
-        repoName: 'semaphoreio/semaphore',
-        repoUrl: 'https://github.com/semaphoreio/semaphore',
+    let data = {};
+    if(type === 'deploymentCard') {
+      data = {  
+        icon: 'cloud_done',
+        label: 'Deploy to Asia cluster',
+        status: 'Passed',
+        timestamp: 'Completed 10 min ago',
+        labels: ['tests', 'integration', 'v.1.0.0'],
         lastEvent: {
           type: 'push',
           release: 'main',
           timestamp: '2025-04-09 09:30 AM'
         },
-        status: 'Passed',
-        timestamp: 'Deployed 2 hours ago',
-        labels: ['1045a77', 'v.4.1.3', 'v.2.3.1', 'community'],
-        queue: ['Feature: Add user authentication', 'Bugfix: Fix login redirect', 'Feature: Add dark mode'],
-        queueIcon: 'flaky', // default icon
-        queueIconClass: 'purple', // default color class
-        
-      },
-      position: { x: 100, y: 100 },
+        queue: [],
+        queueIcon: 'pending',
+        queueIconClass: 'indigo',
+      }
+    }else{
+        data = {
+          repoName: 'semaphoreio/semaphore',
+          repoUrl: 'https://github.com/semaphoreio/semaphore',
+          lastEvent: {
+            type: 'push',
+            release: 'main',
+            timestamp: '2025-04-09 09:30 AM'
+          },
+          status: 'Passed',
+          timestamp: 'Deployed 2 hours ago',
+          labels: ['1045a77', 'v.4.1.3', 'v.2.3.1', 'community'],
+          queue: ['Feature: Add user authentication', 'Bugfix: Fix login redirect', 'Feature: Add dark mode'],
+          queueIcon: 'flaky',
+          queueIconClass: 'purple',
+          style: { width: 320 }
+        }
+    }
+    const newNode = {
+      id: newId,
+      type: type,
+      position: position,
+        data: data,
       style: {
         width: 320,
-      },
+      }
+
     };
     setStages((currentStages) => [...currentStages, newNode]);
   };
 
   // Handle drag start from sidebar
+  const [draggingType, setDraggingType] = useState(null);
+  const [draggingPosition, setDraggingPosition] = useState(null);
+
   const handleDragStart = (event, type) => {
     event.dataTransfer.setData('text/plain', type);
     event.dataTransfer.effectAllowed = 'copy';
+    setDraggingType(type);
   };
 
-  // Handle drag over on canvas
   const handleDragOver = useCallback((event) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = 'copy';
+    const rect = reactFlowWrapper.current.getBoundingClientRect();
+    const position = {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
+    };
+    setDraggingPosition(position);
   }, []);
 
-  // Handle drop on canvas
   const handleDrop = useCallback((event) => {
     event.preventDefault();
     const type = event.dataTransfer.getData('text/plain');
     const rect = reactFlowWrapper.current.getBoundingClientRect();
     const position = {
-      x: event.clientX - rect.left - 100,
-      y: event.clientY - rect.top - 100
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
     };
     handleAddNode(type, position);
+    setDraggingType(null);
+    setDraggingPosition(null);
   }, [handleAddNode]);
 
   // Add drag event listeners to the ReactFlow wrapper
+  const handleDragLeave = () => {
+    setDraggingType(null);
+    setDraggingPosition(null);
+  };
+
   useEffect(() => {
     if (reactFlowWrapper.current) {
       reactFlowWrapper.current.addEventListener('dragover', handleDragOver);
       reactFlowWrapper.current.addEventListener('drop', handleDrop);
+      reactFlowWrapper.current.addEventListener('dragleave', handleDragLeave);
     }
     return () => {
       if (reactFlowWrapper.current) {
         reactFlowWrapper.current.removeEventListener('dragover', handleDragOver);
         reactFlowWrapper.current.removeEventListener('drop', handleDrop);
+        reactFlowWrapper.current.removeEventListener('dragleave', handleDragLeave);
       }
     };
-  }, [handleDragOver, handleDrop]);
+  }, [handleDragOver, handleDrop, handleDragLeave]);
+
+  // Render a preview node while dragging
+  const renderDragPreview = () => {
+    if (!draggingType || !draggingPosition) return null;
+    const previewNode = {
+      id: 'preview',
+      type: draggingType === 'semaphore' ? 'githubIntegration' : draggingType,
+      position: draggingPosition,
+      data: {
+        title: draggingType.charAt(0).toUpperCase() + draggingType.slice(1),
+        description: 'Short description of the workflow recipe goes in here.',
+        style: { width: 320 }
+      },
+      style: {
+        opacity: 0.7,
+        backgroundColor: '#f0f0f0',
+        border: '2px dashed #ccc'
+      }
+    };
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          left: draggingPosition.x,
+          top: draggingPosition.y,
+          pointerEvents: 'none'
+        }}
+      >
+        <div className="node-preview">
+          <div className="node-content">
+            <h3>{previewNode.data.title}</h3>
+            <p>{previewNode.data.description}</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+
   
   // Handle icon block actions
   const handleIconAction = (action) => {
@@ -1471,6 +1549,7 @@ function WorkflowEditor() {
   return (
     <div className="relative h-full w-full" ref={reactFlowWrapper}>
       <ComponentSidebar onAddNode={handleAddNode} onDragStart={handleDragStart} />
+      {renderDragPreview()}
       <button
         onClick={handleExport}
         style={{ position: 'absolute', bottom: 16, right: 16, zIndex: 1000, background: '#222', color: 'white', padding: '10px 18px', borderRadius: 6, border: 'none', fontWeight: 600, cursor: 'pointer', boxShadow: '0 2px 8px rgba(128,128,128,0.20)' }}
@@ -1482,6 +1561,7 @@ function WorkflowEditor() {
       </div>
       
       {/* Edge Delete UI */}
+      {renderDragPreview()}
       {selectedEdge && (
         <div 
           className="absolute flex gap-2 bg-white shadow-gray-lg px-3 py-2 border z-10 rounded-lg"
