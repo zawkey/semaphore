@@ -29,4 +29,7 @@ code {
 .sidebar-hidden{
   height: auto;
 }
+.node:hover .icons{
+  visibility: visible;
+}
   

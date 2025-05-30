@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import * as htmlToImage from 'html-to-image';
 
 import ReactFlow, {
@@ -1321,6 +1321,74 @@ function WorkflowEditor() {
     setSelectedEdge(prev => prev?.id === edge.id ? null : edge);
     setSelectedStage(null); // Deselect any selected stage
   }, []);
+
+  // Handle node addition from sidebar
+  const handleAddNode = (type, position) => {
+    const newId = generateStageId(stages);
+    const newNode = {
+      id: newId,
+      type: 'githubIntegration',
+      data: {
+        repoName: 'semaphoreio/semaphore',
+        repoUrl: 'https://github.com/semaphoreio/semaphore',
+        lastEvent: {
+          type: 'push',
+          release: 'main',
+          timestamp: '2025-04-09 09:30 AM'
+        },
+        status: 'Passed',
+        timestamp: 'Deployed 2 hours ago',
+        labels: ['1045a77', 'v.4.1.3', 'v.2.3.1', 'community'],
+        queue: ['Feature: Add user authentication', 'Bugfix: Fix login redirect', 'Feature: Add dark mode'],
+        queueIcon: 'flaky', // default icon
+        queueIconClass: 'purple', // default color class
+        
+      },
+      position: { x: 100, y: 100 },
+      style: {
+        width: 320,
+      },
+    };
+    setStages((currentStages) => [...currentStages, newNode]);
+  };
+
+  // Handle drag start from sidebar
+  const handleDragStart = (event, type) => {
+    event.dataTransfer.setData('text/plain', type);
+    event.dataTransfer.effectAllowed = 'copy';
+  };
+
+  // Handle drag over on canvas
+  const handleDragOver = useCallback((event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'copy';
+  }, []);
+
+  // Handle drop on canvas
+  const handleDrop = useCallback((event) => {
+    event.preventDefault();
+    const type = event.dataTransfer.getData('text/plain');
+    const rect = reactFlowWrapper.current.getBoundingClientRect();
+    const position = {
+      x: event.clientX - rect.left - 100,
+      y: event.clientY - rect.top - 100
+    };
+    handleAddNode(type, position);
+  }, [handleAddNode]);
+
+  // Add drag event listeners to the ReactFlow wrapper
+  useEffect(() => {
+    if (reactFlowWrapper.current) {
+      reactFlowWrapper.current.addEventListener('dragover', handleDragOver);
+      reactFlowWrapper.current.addEventListener('drop', handleDrop);
+    }
+    return () => {
+      if (reactFlowWrapper.current) {
+        reactFlowWrapper.current.removeEventListener('dragover', handleDragOver);
+        reactFlowWrapper.current.removeEventListener('drop', handleDrop);
+      }
+    };
+  }, [handleDragOver, handleDrop]);
   
   // Handle icon block actions
   const handleIconAction = (action) => {
@@ -1402,7 +1470,7 @@ function WorkflowEditor() {
   
   return (
     <div className="relative h-full w-full" ref={reactFlowWrapper}>
-      <ComponentSidebar />
+      <ComponentSidebar onAddNode={handleAddNode} onDragStart={handleDragStart} />
       <button
         onClick={handleExport}
         style={{ position: 'absolute', bottom: 16, right: 16, zIndex: 1000, background: '#222', color: 'white', padding: '10px 18px', borderRadius: 6, border: 'none', fontWeight: 600, cursor: 'pointer', boxShadow: '0 2px 8px rgba(128,128,128,0.20)' }}
