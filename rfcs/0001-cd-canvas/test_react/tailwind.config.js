@@ -1,10 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
+  content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
   plugins: [],
-}
+  variants: {
+      extend: {
+          display: ["group-hover"],
+      },
+  },
+};

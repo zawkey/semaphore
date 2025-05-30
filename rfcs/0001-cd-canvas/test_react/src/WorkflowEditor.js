@@ -19,6 +19,7 @@ import faviconPinned from './images/favicon-pinned.svg';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import CustomBarHandle from './CustomBarHandle';
+import ComponentSidebar from './components/Component-Sidebar';
 
 // Custom stage component for the deployment card
 const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDelete }) => {
@@ -1401,9 +1402,10 @@ function WorkflowEditor() {
   
   return (
     <div className="relative h-full w-full" ref={reactFlowWrapper}>
+      <ComponentSidebar />
       <button
         onClick={handleExport}
-        style={{ position: 'absolute', top: 16, left: 16, zIndex: 1000, background: '#222', color: 'white', padding: '10px 18px', borderRadius: 6, border: 'none', fontWeight: 600, cursor: 'pointer', boxShadow: '0 2px 8px rgba(128,128,128,0.20)' }}
+        style={{ position: 'absolute', bottom: 16, right: 16, zIndex: 1000, background: '#222', color: 'white', padding: '10px 18px', borderRadius: 6, border: 'none', fontWeight: 600, cursor: 'pointer', boxShadow: '0 2px 8px rgba(128,128,128,0.20)' }}
       >
         Export as Image
       </button>
