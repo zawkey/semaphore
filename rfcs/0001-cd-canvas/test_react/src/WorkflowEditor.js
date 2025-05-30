@@ -4,6 +4,7 @@ import * as htmlToImage from 'html-to-image';
 import ReactFlow, {
   Controls,
   Background,
+  BackgroundVariant,
   useNodesState,
   useEdgesState,
   addEdge,
@@ -20,7 +21,7 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import CustomBarHandle from './CustomBarHandle';
 import ComponentSidebar from './components/Component-Sidebar';
-
+import Navigation from './components/navigation';
 // Custom stage component for the deployment card
 const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDelete }) => {
   const [showOverlay, setShowOverlay] = React.useState(false);
@@ -1381,6 +1382,7 @@ function WorkflowEditor() {
   const handleDragStart = (event, type) => {
     event.dataTransfer.setData('text/plain', type);
     event.dataTransfer.effectAllowed = 'copy';
+    event.target.style.cursor = 'grabbing';
     setDraggingType(type);
   };
 
@@ -1541,18 +1543,21 @@ function WorkflowEditor() {
       onInit={setReactFlowInstance}
       style={{ width: '100%', height: '100%' }} // Fixed dimensions to prevent layout shifts
     >
-      <Controls />
-      <Background variant="dots" gap={16} size={1} color="#bbb" />
+      <Controls style={{ position: 'absolute', right: 8, left: 'auto', bottom: 8 }} />
+      <Background variant={BackgroundVariant.Dots} gap={24} size={2} color="#96A0A6" className="bg-gray-100"/>
     </ReactFlow>
   ), [stages, listeners, onStagesChange, onListenersChange, onConnect, onStageClick, onPaneClick, stageTypes, edgesWithStyles, onEdgeClick]);
   
   return (
-    <div className="relative h-full w-full" ref={reactFlowWrapper}>
+    <div className='flex h-full w-full page-wrapper'>
+      <Navigation className="flex"/>
+    <div className="flex w-full h-full" ref={reactFlowWrapper}>
+      
       <ComponentSidebar onAddNode={handleAddNode} onDragStart={handleDragStart} />
       {renderDragPreview()}
       <button
         onClick={handleExport}
-        style={{ position: 'absolute', bottom: 16, right: 16, zIndex: 1000, background: '#222', color: 'white', padding: '10px 18px', borderRadius: 6, border: 'none', fontWeight: 600, cursor: 'pointer', boxShadow: '0 2px 8px rgba(128,128,128,0.20)' }}
+        style={{ position: 'absolute', top: 66, right: 16, zIndex: 1000, background: '#222', color: 'white', padding: '10px 18px', borderRadius: 6, border: 'none', fontWeight: 600, cursor: 'pointer', boxShadow: '0 2px 8px rgba(128,128,128,0.20)' }}
       >
         Export as Image
       </button>
@@ -1594,6 +1599,7 @@ function WorkflowEditor() {
           onClose={closeSidebar} 
         />
       )}
+    </div>
     </div>
   );
 }

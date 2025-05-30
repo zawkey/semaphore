@@ -23,34 +23,34 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
   };
 
   return (
-    <div className={`flex h-full items-start gap-2.5 p-2.5 absolute z-40 ${isOpen ? 'sidebar-open' : 'sidebar-hidden'}`}>
+    <div className="absolute top-[48px] w-[349px] z-50 bottom-[0px]">
+      <button className={`open-sidebar top-[4px] left-[4px] absolute z-40 !m-2 flex btn-secondary items-center gap-2 rounded-md border border-secondary-hover bg-white fill-foreground stroke-foreground py-3 px-4 text-primary shadow transition-all duration-300 ${isOpen ? 'pointer-events-none opacity-0 -translate-x-full' : 'pointer-events-all opacity-100 translate-x-0'}`} onClick={handleToggle}>
+        <span className="f4 lh-0 b mr-1">Components</span> 
+        <i className="material-symbols-outlined f2 gray -scale-x-100">
+          menu_open
+        </i>
+      </button>
+    <div className={`flex h-full items-start gap-2 p-2 z-50 transition-all duration-300 ${isOpen ? 'opacity-1 -translate-x-0' : 'opacity-0 -translate-x-full'}`}>
       
-      <div className="flex flex-col items-start gap-2.5 relative flex-1 self-stretch bg-white rounded-lg overflow-hidden shadow-[0px_0px_0px_1px_#00000014,0px_1px_3px_#00000029]">
-        <div className="inline-flex flex-col items-start gap-2 px-4 py-0 relative flex-[0_0_auto] border-r [border-right-style:solid] border-[#0000001a]">
-          <div className="flex flex-col w-100 items-start pt-0 pb-2 px-0 relative flex-[0_0_auto] border-0 border-none">
-          <div className="flex items-center justify-between pt-4 pb-2 px-0 w-100 relative">
-              <h2 className="font-bold black-90 f4 mb0 mt0 mr3">Components</h2>
-              <div id="sidebar-toggle" className="!relative !w-6 !h-6" onClick={handleToggle}>
-                <svg
-                  fill="none"
-                  height="24"
-                  viewBox="0 0 25 24"
-                  width="25"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3.7998 18V16H16.7998V18H3.7998ZM20.3998 17L15.3998 12L20.3998 7L21.7998 8.4L18.1998 12L21.7998 15.6L20.3998 17ZM3.7998 13V11H13.7998V13H3.7998ZM3.7998 8V6H16.7998V8H3.7998Z"
-                    fill="#6D6D6D"
-                  />
-                </svg>
-              </div>
+      <div className="sidebar-body bg-white flex flex-col items-start gap-2 relative flex-1 self-stretch rounded-lg overflow-hidden shadow-[0px_0px_0px_1px_#00000014,0px_1px_3px_#00000029]">
+        <div className="inline-flex flex-col items-start px-4 py-0 relative flex-[0_0_auto] border-r [border-right-style:solid] border-[#0000001a]">
+          <div className="flex flex-col w-100 items-start pt-0 pb-0 px-0 relative flex-[0_0_auto] border-0 border-none">
+          <div className="flex items-center justify-between pt-4 pb-4 px-0 w-100 relative">
+              <h2 className="f4 lh-0 b mr-1 mb-0">Components</h2>
+              <button href="#" id="sidebar-toggle" className="!relative !w-6 !h-6" onClick={handleToggle}>
+                <i className="material-symbols-outlined f2 gray">
+                  menu_open
+                </i>
+              </button>
             </div>
           </div>
-          <div className="sidebar-body w-[300px]">
-            <input type="text" className="form-control w-100 mb-4" placeholder="Search…"></input>
+          <div className="w-[300px]">
+            <div className="my-2">
+              <input type="text" className="form-control w-100 mb-4" placeholder="Search…"></input>
+            </div>
 
-            <div className="category-trigger flex items-center justify-between relative self-stretch w-full flex-[0_0_auto]" onClick={handleNodesToggle}>
-              <div className="inline-flex flex-col items-start pl-0 pr-4 py-1 relative flex-[0_0_auto] mb-2">
+            <div className="cursor-pointer mb-2 category-trigger flex items-center justify-between relative self-stretch w-full flex-[0_0_auto]" onClick={handleNodesToggle}>
+              <div className="inline-flex flex-col items-start pl-0 pr-4 relative flex-[0_0_auto]">
                 <div className="relative w-fit whitespace-nowrap text-xs">
                   NODES
                 </div>
@@ -59,8 +59,8 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                 {isNodesCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
               </i>
             </div>
-            <div className="categories" style={{ display: isNodesCollapsed ? 'none' : 'block' }}>
-              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2" onDragStart={(e) => onDragStart(e, 'deploymentCard')} draggable="true">
+            <div className="categories mb-4" style={{ display: isNodesCollapsed ? 'none' : 'block' }}>
+              <a href="#" className="cursor-grab rounded-md flex items-center node p-2 relative bg-gray-100 hover:bg-gray-200 mb-2" onDragStart={(e) => onDragStart(e, 'deploymentCard')} draggable="true">
                 <div className="flex flex-col items-start relative visible">
                   <div className="flex flex-col items-center justify-center relative visible">
                     <span className="material-symbols-outlined dark-red text-4xl visible">rocket_launch </span>
@@ -79,11 +79,11 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   </div>
                 </div>
                 <div className="invisible flex items-center icons">
-                  <button className="add-node material-symbols-outlined f3 gray mr-2" onClick={() => onAddNode('deploymentCard', { x: 0, y: 0 })}>add</button>
-                  <button className="drag-node material-symbols-outlined f3 gray">drag_indicator</button>
+                  <button className="add-node material-symbols-outlined f3 gray mr-2 hover:bg-gray-100 br2" onClick={() => onAddNode('deploymentCard', { x: 0, y: 0 })}>add</button>
+                  <button className="drag-node cursor-grab material-symbols-outlined f3 gray">drag_indicator</button>
                 </div>
               </a>
-              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2" onDragStart={(e) => onDragStart(e, 'deploymentCard')} draggable="true">
+              <a href="#" className="cursor-grab rounded-md flex items-center node p-2 relative bg-gray-100 hover:bg-gray-200 mb-2" onDragStart={(e) => onDragStart(e, 'deploymentCard')} draggable="true">
                 <div className="flex flex-col items-start relative">
                   <div className="flex flex-col items-center justify-center relative">
                     <span className="material-symbols-outlined dark-green text-4xl">local_police </span>
@@ -102,16 +102,16 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   </div>
                 </div>
                 <div className="invisible flex items-center icons">
-                  <button className="add-node material-symbols-outlined f3 gray mr-2" onClick={() => onAddNode('deploymentCard', { x: 0, y: 0 })}>add</button>
-                  <button className="drag-node material-symbols-outlined f3 gray" draggable="true">drag_indicator</button>
+                  <button className="add-node material-symbols-outlined f3 gray mr-2 hover:bg-gray-100 br2" onClick={() => onAddNode('deploymentCard', { x: 0, y: 0 })}>add</button>
+                  <button className="drag-node cursor-grab material-symbols-outlined f3 gray" draggable="true">drag_indicator</button>
                 </div>
               </a>
             </div>
           </div>
 
           <div className="sidebar-body w-[300px]">
-            <div className="category-trigger flex items-center justify-between relative self-stretch w-full flex-[0_0_auto]" onClick={handleIntegrationsToggle}>
-              <div className="inline-flex flex-col items-start pl-0 pr-4 py-1 relative flex-[0_0_auto] mb-2">
+            <div className="cursor-pointer mb-2 category-trigger flex items-center justify-between relative self-stretch w-full flex-[0_0_auto]" onClick={handleIntegrationsToggle}>
+              <div className="inline-flex flex-col items-start pl-0 pr-4 py-1 relative flex-[0_0_auto]">
                 <div className="relative w-fit whitespace-nowrap text-xs">
                   INTEGRATIONS
                 </div>
@@ -121,7 +121,7 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
               </i>
             </div>
             <div className="categories" style={{ display: isIntegrationsCollapsed ? 'none' : 'block' }}>
-              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2" onDragStart={(e) => onDragStart(e, 'githubIntegration')} draggable="true">
+              <a href="#" className="cursor-grab rounded-md flex items-center node p-2 relative bg-gray-100 hover:bg-gray-200 mb-2" onDragStart={(e) => onDragStart(e, 'githubIntegration')} draggable="true">
                 <div className="flex flex-col items-start relative visible">
                   <div className="flex flex-col items-center justify-center relative visible">
                     <img src={gitHub} alt="GitHub" />
@@ -140,11 +140,11 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   </div>
                 </div>
                 <div className="invisible flex items-center icons">
-                  <button className="add-node material-symbols-outlined f3 gray mr-2" onClick={() => onAddNode('githubIntegration', { x: 0, y: 0 })}>add</button>
-                  <button className="drag-node material-symbols-outlined f3 gray">drag_indicator</button>
+                  <button className="add-node material-symbols-outlined f3 gray mr-2 hover:bg-gray-100 br2" onClick={() => onAddNode('githubIntegration', { x: 0, y: 0 })}>add</button>
+                  <button className="drag-node cursor-grab material-symbols-outlined f3 gray">drag_indicator</button>
                 </div>
               </a>
-              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2" onDragStart={(e) => onDragStart(e, 'githubIntegration')} draggable="true">
+              <a href="#" className="cursor-grab rounded-md flex items-center node p-2 relative bg-gray-100 hover:bg-gray-200 mb-2" onDragStart={(e) => onDragStart(e, 'githubIntegration')} draggable="true">
                 <div className="flex flex-col items-start relative">
                   <div className="flex flex-col items-center justify-center relative">
                     <img src={semaphoreLogo} alt="Semaphore project" />
@@ -163,11 +163,11 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   </div>
                 </div>
                 <div className="invisible flex items-center icons">
-                  <button className="add-node material-symbols-outlined f3 gray mr-2" onClick={() => onAddNode('githubIntegration', { x: 0, y: 0 })}>add</button>
-                  <button className="drag-node material-symbols-outlined f3 gray">drag_indicator</button>
+                  <button className="add-node material-symbols-outlined f3 gray mr-2 hover:bg-gray-100 br2" onClick={() => onAddNode('githubIntegration', { x: 0, y: 0 })}>add</button>
+                  <button className="drag-node cursor-grab material-symbols-outlined f3 gray">drag_indicator</button>
                 </div>
               </a>
-              <a href="#" className="flex items-center node p-2 relative bg-washed-gray mb-2" onDragStart={(e) => onDragStart(e, 'githubIntegration')} draggable="true">
+              <a href="#" className="cursor-grab rounded-md flex items-center node p-2 relative bg-gray-100 hover:bg-gray-200 mb-2" onDragStart={(e) => onDragStart(e, 'githubIntegration')} draggable="true">
                 <div className="flex flex-col items-start relative">
                   <div className="flex flex-col items-center justify-center relative">
                     <img src={gitLab} alt="GitLab" />
@@ -186,14 +186,15 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   </div>
                 </div>
                 <div className="invisible flex items-center icons">
-                  <button className="add-node material-symbols-outlined f3 gray mr-2" onClick={() => onAddNode('githubIntegration', { x: 0, y: 0 })}>add</button>
-                  <button className="drag-node material-symbols-outlined f3 gray">drag_indicator</button>
+                  <button className="add-node material-symbols-outlined f3 gray mr-2 hover:bg-gray-100 br2" onClick={() => onAddNode('githubIntegration', { x: 0, y: 0 })}>add</button>
+                  <button className="drag-node cursor-grab material-symbols-outlined f3 gray">drag_indicator</button>
                 </div>
               </a>
             </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
