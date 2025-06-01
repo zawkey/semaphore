@@ -1,4 +1,300 @@
 export const toolsList = [
+  {
+    name: "Github",
+    logo: require("../images/github.svg").default,
+    actions: [
+          "Create a file",
+          "Delete a file",
+          "Edit a file",
+          "Get a file",
+          "List files",
+          "Create an issue",
+          "Create a comment on an issue",
+          "Edit an issue",
+          "Get an issue",
+          "Lock an issue",
+          "Get repositories for an organization",
+          "Create a release",
+          "Delete a release",
+          "Get a release",
+          "Get many releases",
+          "Update a release",
+          "Get a repository",
+          "Get issues of a repository",
+          "Get the license of a repository",
+          "Get the profile of a repository",
+          "Get pull requests of a repository",
+          "List popular paths in a repository"
+      ],
+    events: [
+      "On check run",
+        "On check suite",
+        "On commit comment",
+        "On create",
+        "On delete",
+        "On deploy key",
+        "On deployment",
+        "On deployment status",
+        "On fork",
+        "On github app authorization",
+        "On gollum",
+        "On installation",
+        "On installation repositories",
+        "On issue comment",
+        "On issues",
+        "On label"
+        ]
+    
+  },
+  {
+    name: "Ruby",
+    logo: require("../images/logos/lang-ruby.svg").default,
+    actions: [
+      "Create Ruby script",
+      "Run Ruby script",
+      "Install Ruby gem",
+      "Update Ruby gem",
+      "List installed gems",
+      "Run RSpec tests",
+      "Run RubyMine analysis"
+    ],
+    events: [
+      "On Ruby script execution",
+      "On gem installation",
+      "On gem update",
+      "On test completion"
+    ]
+  },
+  {
+    name: "PHP",
+    logo: require("../images/logos/lang-php.svg").default,
+    actions: [
+      "Create PHP script",
+      "Run PHP script",
+      "Install Composer package",
+      "Update Composer package",
+      "Run PHPUnit tests",
+      "Run PHPStan analysis",
+      "Run PHP CS Fixer"
+    ],
+    events: [
+      "On PHP script execution",
+      "On Composer package installation",
+      "On test completion",
+      "On code style check"
+    ]
+  },
+  {
+    name: "Django",
+    logo: require("../images/logos/lang-django.svg").default,
+    actions: [
+      "Create Django app",
+      "Run migrations",
+      "Create superuser",
+      "Run tests",
+      "Collect static files",
+      "Run development server",
+      "Create model"
+    ],
+    events: [
+      "On migration",
+      "On server start",
+      "On test completion",
+      "On model creation"
+    ]
+  },
+  {
+    name: "Python",
+    logo: require("../images/logos/lang-python.svg").default,
+    actions: [
+      "Create Python script",
+      "Run Python script",
+      "Install pip package",
+      "Update pip package",
+      "Run pytest tests",
+      "Run black formatting",
+      "Run mypy type checking"
+    ],
+    events: [
+      "On Python script execution",
+      "On package installation",
+      "On test completion",
+      "On code formatting"
+    ]
+  },
+  {
+    name: "Yarn",
+    logo: require("../images/logos/lang-yarn.svg").default,
+    actions: [
+      "Install dependencies",
+      "Add package",
+      "Remove package",
+      "Run script",
+      "List dependencies",
+      "Update dependencies",
+      "Create workspace"
+    ],
+    events: [
+      "On dependency installation",
+      "On package addition",
+      "On script execution",
+      "On workspace creation"
+    ]
+  },
+  {
+    name: "Scala",
+    logo: require("../images/logos/lang-scala.svg").default,
+    actions: [
+      "Create Scala project",
+      "Compile Scala code",
+      "Run Scala application",
+      "Run Scala tests",
+      "Run sbt task",
+      "Create Scala class",
+      "Create Scala trait"
+    ],
+    events: [
+      "On compilation",
+      "On test completion",
+      "On task execution",
+      "On class creation"
+    ]
+  },
+  {
+    name: "Rails",
+    logo: require("../images/logos/lang-rails.svg").default,
+    actions: [
+      "Create Rails app",
+      "Run migrations",
+      "Create controller",
+      "Create model",
+      "Create view",
+      "Run tests",
+      "Run development server"
+    ],
+    events: [
+      "On migration",
+      "On server start",
+      "On test completion",
+      "On controller creation"
+    ]
+  },
+  {
+    name: "Laravel",
+    logo: require("../images/logos/lang-laravel.svg").default,
+    actions: [
+      "Create Laravel app",
+      "Run migrations",
+      "Create controller",
+      "Create model",
+      "Create view",
+      "Run tests",
+      "Run artisan command"
+    ],
+    events: [
+      "On migration",
+      "On command execution",
+      "On test completion",
+      "On controller creation"
+    ]
+  },
+  {
+    name: "Fastlane",
+    logo: require("../images/logos/lang-fastlane.svg").default,
+    actions: [
+      "Run lane",
+      "Deploy to App Store",
+      "Deploy to Google Play",
+      "Create screenshots",
+      "Build app",
+      "Test app",
+      "Create release notes"
+    ],
+    events: [
+      "On lane execution",
+      "On deployment",
+      "On build completion",
+      "On test completion"
+    ]
+  },
+  {
+    name: "Phoenix",
+    logo: require("../images/logos/lang-phoenix.svg").default,
+    actions: [
+      "Create Phoenix app",
+      "Run migrations",
+      "Create controller",
+      "Create context",
+      "Create view",
+      "Run tests",
+      "Run development server"
+    ],
+    events: [
+      "On migration",
+      "On server start",
+      "On test completion",
+      "On controller creation"
+    ]
+  },
+  {
+    name: "Docker",
+    logo: require("../images/logos/lang-docker.svg").default,
+    actions: [
+      "Build image",
+      "Run container",
+      "Push image",
+      "Pull image",
+      "Create network",
+      "Create volume",
+      "Run command in container"
+    ],
+    events: [
+      "On image build",
+      "On container start",
+      "On image push",
+      "On command execution"
+    ]
+  },
+  {
+    name: "textract",
+    logo: require('../images/logos/textract.svg fill.svg').default,
+    actions: [
+      "Extract text from PDF",
+      "Extract text from image",
+      "Extract text from Word",
+      "Extract text from Excel",
+      "Extract text from PowerPoint",
+      "Extract metadata",
+      "Process document"
+    ],
+    events: [
+      "On text extraction",
+      "On metadata extraction",
+      "On document processing",
+      "On format conversion"
+    ]
+  },
+  {
+    name: "sqs",
+    logo: require('../images/logos/sqs.svg fill.svg').default,
+    actions: [
+      "Create queue",
+      "Send message",
+      "Receive message",
+      "Delete message",
+      "List queues",
+      "Set queue attributes",
+      "Receive messages in batch"
+    ],
+    events: [
+      "On message sent",
+      "On message received",
+      "On queue creation",
+      "On attribute update"
+    ]
+  }
+]
+/*export const toolsList2 = [
     {
       "name": "Ruby",
       "logo": require("../images/logos/lang-ruby.svg").default
@@ -339,4 +635,4 @@ export const toolsList = [
       "name": "NASA",
       "logo": require("../images/logos/nasa.png.svg").default
     }    
-  ]
+  ]*/
