@@ -1551,10 +1551,15 @@ function WorkflowEditor() {
   return (
     <div className='flex h-full w-full page-wrapper'>
       <Navigation className="flex"/>
-    <div className="flex w-full h-full" ref={reactFlowWrapper}>
+    
       
+      
+    <div className="flex w-full h-full" ref={reactFlowWrapper}>
+      <div className='group peer relative block h-full bg-transparent'>
       <ComponentSidebar onAddNode={handleAddNode} onDragStart={handleDragStart} />
+      </div>
       {renderDragPreview()}
+     
       <button
         onClick={handleExport}
         style={{ position: 'absolute', top: 66, right: 16, zIndex: 1000, background: '#222', color: 'white', padding: '10px 18px', borderRadius: 6, border: 'none', fontWeight: 600, cursor: 'pointer', boxShadow: '0 2px 8px rgba(128,128,128,0.20)' }}
