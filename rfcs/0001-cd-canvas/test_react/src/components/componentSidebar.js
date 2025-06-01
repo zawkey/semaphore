@@ -1,28 +1,7 @@
 import React, { useState } from "react";
 import SidebarNode from "./sidebarNode";
 import { toolsList } from "./tools";
-
-const StageNode = ({ onDragStart, onAddNode }) => (
-  <SidebarNode
-    type="deploymentCard"
-    icon="rocket_launch"
-    title="Stage"
-    description="Short description of the workflow recipe goes in here."
-    onDragStart={onDragStart}
-    onAddNode={onAddNode}
-  />
-);
-
-const GateNode = ({ onDragStart, onAddNode }) => (
-  <SidebarNode
-    type="deploymentCard"
-    icon="local_police"
-    title="Gate"
-    description="Short description of the workflow recipe goes in here."
-    onDragStart={onDragStart}
-    onAddNode={onAddNode}
-  />
-);
+import { nodesList } from "./nodes";
 
 const ComponentSidebar = ({ onAddNode, onDragStart }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -57,12 +36,11 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                 <input type="text" className="form-control w-100 mb-4" placeholder="Search…" />
               </div>
             </div>
-
             <div className="flex min-h-0 flex-1 flex-col overflow-auto">
               <div className="relative flex w-full min-w-0 flex-col px-4">
                 {/* Nodes Section */}
                 <div className="cursor-pointer mb-2 category-trigger flex items-center justify-between relative self-stretch w-full flex-[0_0_auto]" onClick={handleNodesToggle}>
-                  <div className="inline-flex flex-col items-start pl-0 pr-4 py-1 relative flex-[0_0_auto]">
+                  <div className="inline-flex flex-col items-start pl-0 pr-4 relative flex-[0_0_auto]">
                     <div className="relative w-fit whitespace-nowrap text-xs">
                       NODES
                     </div>
@@ -72,13 +50,22 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   </i>
                 </div>
                 <div className="categories mb-4" style={{ display: isNodesCollapsed ? 'none' : 'block' }}>
-                  <StageNode onDragStart={onDragStart} onAddNode={onAddNode} />
-                  <GateNode onDragStart={onDragStart} onAddNode={onAddNode} />
+                {nodesList.map((node, index) => (
+                    <SidebarNode
+                      key={node.name}
+                      type="githubIntegration"
+                      icon={node.logo}
+                      title={node.name}
+                      description="Short description of the workflow recipe goes in here."
+                      onDragStart={onDragStart}
+                      onAddNode={onAddNode}
+                    />
+                  ))}
                 </div>
 
                 {/* Integrations Section */}
                 <div className="cursor-pointer mb-2 category-trigger flex items-center justify-between relative self-stretch w-full flex-[0_0_auto]" onClick={handleIntegrationsToggle}>
-                  <div className="inline-flex flex-col items-start pl-0 pr-4 py-1 relative flex-[0_0_auto]">
+                  <div className="inline-flex flex-col items-start pl-0 pr-4 relative flex-[0_0_auto]">
                     <div className="relative w-fit whitespace-nowrap text-xs">
                       INTEGRATIONS
                     </div>

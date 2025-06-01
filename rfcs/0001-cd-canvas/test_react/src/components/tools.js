@@ -1,5 +1,49 @@
 export const toolsList = [
     {
+      "name": "Ruby",
+      "logo": require("../images/logos/lang-ruby.svg").default
+    },
+    {
+      "name": "PHP",
+      "logo": require("../images/logos/lang-php.svg").default
+    },
+    {
+      "name": "Django",
+      "logo": require("../images/logos/lang-django.svg").default
+    },
+    {
+      "name": "Python",
+      "logo": require("../images/logos/lang-python.svg").default
+    },
+    {
+      "name": "Yarn",
+      "logo": require("../images/logos/lang-yarn.svg").default
+    },
+    {
+      "name": "Scala",
+      "logo": require("../images/logos/lang-scala.svg").default
+    },
+    {
+      "name": "Rails",
+      "logo": require("../images/logos/lang-rails.svg").default
+    },
+    {
+      "name": "Laravel",
+      "logo": require("../images/logos/lang-laravel.svg").default
+    },
+    {
+      "name": "Fastlane",
+      "logo": require("../images/logos/lang-fastlane.svg").default
+    },
+    {
+      "name": "Phoenix",
+      "logo": require("../images/logos/lang-phoenix.svg").default
+    },
+    {
+      "name": "Docker",
+      "logo": require("../images/logos/lang-docker.svg").default
+    },
+    {
       "name": "textract",
       "logo": require('../images/logos/textract.svg fill.svg').default
     },
@@ -17,7 +61,7 @@ export const toolsList = [
     },
     {
       "name": "s3",
-      "logo": require('../images/logos/s3.svg fill.svg').default
+      "logo": require('../images/logos/s3.svg.svg').default
     },
     {
       "name": "rekognition",
@@ -52,10 +96,6 @@ export const toolsList = [
       "logo": require('../images/logos/autopilot.svg.svg').default
     },
     {
-      "name": "auth0",
-      "logo": require('../images/logos/Auth0.dark.svg.svg').default
-    },
-    {
       "name": "asana",
       "logo": require('../images/logos/asana.svg.svg').default
     },
@@ -66,10 +106,6 @@ export const toolsList = [
     {
       "name": "amqp",
       "logo": require('../images/logos/amqp.svg.svg').default
-    },
-    {
-      "name": "background",
-      "logo": require('../images/logos/Background.svg').default
     },
     {
       "name": "alienVault",
@@ -140,16 +176,8 @@ export const toolsList = [
       "logo": require("../images/logos/reddit.svg.svg").default
     },
     {
-      "name": "Background-2",
-      "logo": require("../images/logos/Background-2.svg").default
-    },
-    {
       "name": "Recorded Future",
-      "logo": require("../images/logos/RecordedFuture.dark.svg.svg").default
-    },
-    {
-      "name": "Background-1",
-      "logo": require("../images/logos/Background-1.svg").default
+      "logo": require("../images/logos/Background-2.svg").default
     },
     {
       "name": "Rapid7 InsightVM",
@@ -182,10 +210,6 @@ export const toolsList = [
     {
       "name": "Qualys",
       "logo": require("../images/logos/Qualys.svg.svg").default
-    },
-    {
-      "name": "IBM",
-      "logo": require("../images/logos/IBM.dark.svg.svg").default
     },
     {
       "name": "Pushover",
@@ -238,10 +262,6 @@ export const toolsList = [
     {
       "name": "Peekalink",
       "logo": require("../images/logos/peekalink.png.svg").default
-    },
-    {
-      "name": "PDforGea",
-      "logo": require("../images/logos/Pdforge_a64e700caa.svg.svg").default
     },
     {
       "name": "PDF",
