@@ -149,22 +149,18 @@ export const toolsList = [
     },
     {
       "name": "S3",
-      "logo": require("../images/logos/S3.svg").default
+      "logo": require("../images/logos/s3.svg.svg").default
     },
     {
       "name": "Rundeck",
       "logo": require("../images/logos/rundeck.png.svg").default
     },
     {
-      "name": "Img-1",
-      "logo": require("../images/logos/Img-1.svg").default
-    },
-    {
-      "name": "Img",
+      "name": "RS",
       "logo": require("../images/logos/Img.svg").default
     },
     {
-      "name": "Rocket.Chat",
+      "name": "Rocket Chat",
       "logo": require("../images/logos/rocketchat.svg.svg").default
     },
     {

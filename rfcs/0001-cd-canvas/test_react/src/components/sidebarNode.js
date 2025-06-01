@@ -7,7 +7,7 @@ const SidebarNode = ({
   onAddNode,
   onDragStart
 }) => (
-  <div className="cursor-grab rounded-md flex items-center node p-2 relative bg-gray-100 hover:bg-gray-200 mb-2" onDragStart={(e) => onDragStart(e, 'githubIntegration')} draggable="true">
+  <div className="cursor-grab rounded-md flex items-center node px-3 py-2 relative bg-gray-100 hover:bg-gray-200 mb-2" onDragStart={(e) => onDragStart(e, 'githubIntegration')} draggable="true">
   <div className="flex flex-col items-start relative visible">
     <div className="flex flex-col items-center justify-center relative visible">
       {icon && (
@@ -15,7 +15,7 @@ const SidebarNode = ({
       )}
     </div>
   </div>
-  <div className="flex flex-col items-start pl-4 pr-0 py-0 relative flex-1">
+  <div className="flex flex-col items-start pl-3 pr-0 py-0 relative flex-1">
     <div className="flex relative self-stretch w-full">
       <h3 className="relative capitalize self-stretch font-bold black-90 f4 mb-0 tracking-[0] leading-[22px]">
         {title}
