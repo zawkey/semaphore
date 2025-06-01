@@ -20,7 +20,7 @@ import faviconPinned from './images/favicon-pinned.svg';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import CustomBarHandle from './CustomBarHandle';
-import ComponentSidebar from './components/Component-Sidebar';
+import ComponentSidebar from './components/componentSidebar';
 import Navigation from './components/navigation';
 // Custom stage component for the deployment card
 const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDelete }) => {
