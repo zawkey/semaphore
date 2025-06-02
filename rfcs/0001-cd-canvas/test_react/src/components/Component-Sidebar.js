@@ -45,20 +45,8 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
             </div>
           </div>
           <div className="w-[300px]">
-            <div className="my-2">
-              <input type="text" className="form-control w-100 mb-4" placeholder="Search…"></input>
-            </div>
+           
 
-            <div className="cursor-pointer mb-2 category-trigger flex items-center justify-between relative self-stretch w-full flex-[0_0_auto]" onClick={handleNodesToggle}>
-              <div className="inline-flex flex-col items-start pl-0 pr-4 relative flex-[0_0_auto]">
-                <div className="relative w-fit whitespace-nowrap text-xs">
-                  NODES
-                </div>
-              </div>
-              <i className="material-symbols-outlined f3">
-                {isNodesCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
-              </i>
-            </div>
             <div className="categories mb-4" style={{ display: isNodesCollapsed ? 'none' : 'block' }}>
               <a href="#" className="cursor-grab rounded-md flex items-center node p-2 relative bg-gray-100 hover:bg-gray-200 mb-2" onDragStart={(e) => onDragStart(e, 'deploymentCard')} draggable="true">
                 <div className="flex flex-col items-start relative visible">
@@ -83,29 +71,7 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   <button className="drag-node cursor-grab material-symbols-outlined f3 gray">drag_indicator</button>
                 </div>
               </a>
-              <a href="#" className="cursor-grab rounded-md flex items-center node p-2 relative bg-gray-100 hover:bg-gray-200 mb-2" onDragStart={(e) => onDragStart(e, 'deploymentCard')} draggable="true">
-                <div className="flex flex-col items-start relative">
-                  <div className="flex flex-col items-center justify-center relative">
-                    <span className="material-symbols-outlined dark-green text-4xl">local_police </span>
-                  </div>
-                </div>
-                <div className="flex flex-col items-start pl-4 pr-0 py-0 relative flex-1">
-                  <div className="flex relative self-stretch w-full">
-                    <h3 className="relative self-stretch font-bold black-90 f4 mb-0 tracking-[0] leading-[22px]">
-                      Gate
-                    </h3>
-                  </div>
-                  <div className="flex relative self-stretch w-full flex-[0_0_auto]">
-                    <p className="relative self-stretch mb-0 f6 gray overflow-hidden text-ellipsis [display:-webkit-box] [-webkit-line-clamp:1] [-webkit-box-orient:vertical]">
-                      Short decription of the workflow recipe goes in here.
-                    </p>
-                  </div>
-                </div>
-                <div className="invisible flex items-center icons">
-                  <button className="add-node material-symbols-outlined f3 gray mr-2 hover:bg-gray-100 br2" onClick={() => onAddNode('deploymentCard', { x: 0, y: 0 })}>add</button>
-                  <button className="drag-node cursor-grab material-symbols-outlined f3 gray" draggable="true">drag_indicator</button>
-                </div>
-              </a>
+              
             </div>
           </div>
 
