@@ -36,46 +36,51 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
               </div>
               <div className="flex min-h-0 flex-1 flex-col overflow-auto w-full">
                 <div className="relative flex w-full min-w-0 flex-col px-2">
-                  <div className="relative w-fit whitespace-nowrap text-sm b gray px-2 mb-2">
-                    Events
-                  </div>
+                <NodeGroup
+                      title="Source control"
+                       icon="merge"
+                    >
                   {toolsList.map((tool) => (
                    <NodeGroup
                       title={tool.name}
                       logo={tool.logo}
+                      collapsed={true}
+                     
                     >
+                    <SidebarNode
+                      key={tool.name}
+                      logo={tool.logo}
+                      title={tool.name}
+                      description="Listen to GitHub repo"
+                      onAddNode={onAddNode}
+                      onDragStart={onDragStart}
+                    />
+                  <div className="relative w-fit whitespace-nowrap text-sm b gray px-2 mb-2">
+                    Bundle
+                  </div>
                     {tool.events.map((item, key) => (
                           <SidebarNode
                             key={key}
-                            icon={tool.logo}
+                            icon= "bolt"
+                            logo={tool.logo}
                             title={item}
                             onAddNode={onAddNode}
                             onDragStart={onDragStart}
                           />
-                      
                       ))}
-                      </NodeGroup>
-                  ))}
-                   <div className="relative w-fit whitespace-nowrap text-sm b gray px-2 mt-4 mb-2">
-                    Actions
-                  </div>
-                  {toolsList.map((tool) => (
-                   <NodeGroup
-                      title={tool.name}
-                      logo={tool.logo}
-                    >
-                    {tool.actions.map((item, key) => (
+                      {tool.actions.map((item, key) => (
                           <SidebarNode
                             key={key}
-                            icon={tool.logo}
+                            logo={tool.logo}
                             title={item}
                             onAddNode={onAddNode}
                             onDragStart={onDragStart}
                           />
-                      
                       ))}
                       </NodeGroup>
                   ))}
+                  </NodeGroup>
+                   
                  
                 </div>
               </div>
