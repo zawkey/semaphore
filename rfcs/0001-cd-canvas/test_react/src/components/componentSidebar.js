@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SidebarNode from "./SidebarNode";
 import { toolsList } from "./tools";
 import NodeGroup from "./NodeGroup";
+import { categoriesList } from "./categoriesList";
 
 const ComponentSidebar = ({ onAddNode, onDragStart }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -35,47 +36,52 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
               </div>
               <div className="flex min-h-0 flex-1 flex-col overflow-auto w-full">
                 <div className="relative flex w-full min-w-0 flex-col px-2">
-                <div className="flex items-center text-md b gray px-1 mb-2">
-                  <i className="material-symbols-outlined f2 gray mr-1">merge</i>Source control
-                </div>
-                  {toolsList.map((tool) => (
-                   <NodeGroup
-                      title={tool.name}
-                      logo={tool.logo}
-                      collapsed={true}
-                     
-                    >
-                    <SidebarNode
-                      key={tool.name}
-                      logo={tool.logo}
-                      title={tool.name}
-                      onAddNode={onAddNode}
-                      onDragStart={onDragStart}
-                    />
-                  <div className="relative w-fit whitespace-nowrap text-sm b gray px-2 mb-2">
-                    Bundle
-                  </div>
-                    {tool.events.map((item, key) => (
+
+                {categoriesList.map((category) => (
+                  <div key={category.category_name}>
+                    <div className="flex items-center text-sm uppercase b gray px-1 pt2 mb-2">
+                      <i className="material-symbols-outlined f2 gray mr-1 hidden">merge</i>
+                      {category.category_name}
+                    </div>
+                    {category.tools.map((tool) => (
+                      <NodeGroup
+                        key={tool.name}
+                        title={tool.name}
+                        logo={tool.logo}
+                        collapsed={true}
+                      >
+                        <SidebarNode
+                          key={tool.name}
+                          logo={tool.logo}
+                          title={tool.name}
+                        />
+                        <div className="relative w-fit whitespace-nowrap text-sm b gray px-2 mb-2">
+                        Bundle
+                        </div>
+                        {tool.events.map((item, key) => (
                           <SidebarNode
                             key={key}
-                            icon= "bolt"
+                            logo={tool.logo}
+                            title={item}
+                            icon="bolt"
+                            onAddNode={onAddNode}
+                            onDragStart={onDragStart}
+                          />
+                        ))}
+                        {tool.actions.map((item, key) => (
+                          <SidebarNode
+                            key={key}
                             logo={tool.logo}
                             title={item}
                             onAddNode={onAddNode}
                             onDragStart={onDragStart}
                           />
-                      ))}
-                      {tool.actions.map((item, key) => (
-                          <SidebarNode
-                            key={key}
-                            logo={tool.logo}
-                            title={item}
-                            onAddNode={onAddNode}
-                            onDragStart={onDragStart}
-                          />
-                      ))}
+                        ))}
                       </NodeGroup>
-                  ))}
+                    ))}
+                  </div>
+                ))}
+                 
                  
                    
                  

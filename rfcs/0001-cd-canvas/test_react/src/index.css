@@ -58,9 +58,9 @@ code {
 .page-wrapper{
   padding-top: 48px;
 }
-.collapsed .categories{
+.expanded .categories{
   grid-template-rows: 1fr;
 }
-.collapsed .categories > div{
+.expanded .categories > div{
   overflow: hidden;
 }
