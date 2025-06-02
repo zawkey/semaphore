@@ -36,7 +36,71 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
               </div>
               <div className="flex min-h-0 flex-1 flex-col overflow-auto w-full">
                 <div className="relative flex w-full min-w-0 flex-col px-2">
-
+                  <div className="flex items-center text-sm uppercase b gray px-1 pt2 mb-2">
+                    <i className="material-symbols-outlined f2 gray mr-1 hidden">merge</i>
+                    Stages
+                  </div>
+                  <SidebarNode
+                    key={"deployment-gates"}
+                    logo={require("../images/logos/rocket.svg").default}
+                    title={"Pre-deployment"}
+                    onAddNode={onAddNode}
+                    onDragStart={onDragStart}
+                  />
+                  <SidebarNode
+                    key={"deployment-gates"}
+                    logo={require("../images/logos/rocket.svg").default}
+                    title={"Staging"}
+                    onAddNode={onAddNode}
+                    onDragStart={onDragStart}
+                  />
+                  <SidebarNode
+                    key={"deployment-gates"}
+                    logo={require("../images/logos/rocket.svg").default}
+                    title={"Production"}
+                    onAddNode={onAddNode}
+                    onDragStart={onDragStart}
+                  />
+                  <SidebarNode
+                    key={"deployment-gates"}
+                    logo={require("../images/logos/rocket.svg").default}
+                    title={"Something else"}
+                    onAddNode={onAddNode}
+                    onDragStart={onDragStart}
+                  />
+                  <div className="flex items-center text-sm uppercase b gray px-1 pt2 mb-2">
+                    <i className="material-symbols-outlined f2 gray mr-1 hidden">merge</i>
+                    Deployment gates
+                  </div>
+                
+                  <SidebarNode
+                    key={"deployment-gates"}
+                    logo={require("../images/logos/shield.svg").default}
+                    title={"Manual approval"}
+                    onAddNode={onAddNode}
+                    onDragStart={onDragStart}
+                  />
+                  <SidebarNode
+                    key={"deployment-gates"}
+                    logo={require("../images/logos/shield.svg").default}
+                    title={"Schedule restriction"}
+                    onAddNode={onAddNode}
+                    onDragStart={onDragStart}
+                  />
+                  <SidebarNode
+                    key={"deployment-gates"}
+                    logo={require("../images/logos/shield.svg").default}
+                    title={"Deployment window"}
+                    onAddNode={onAddNode}
+                    onDragStart={onDragStart}
+                  />
+                  <SidebarNode
+                    key={"deployment-gates"}
+                    logo={require("../images/logos/shield.svg").default}
+                    title={"Incident pauses"}
+                    onAddNode={onAddNode}
+                    onDragStart={onDragStart}
+                  />
                 {categoriesList.map((category) => (
                   <div key={category.category_name}>
                     <div className="flex items-center text-sm uppercase b gray px-1 pt2 mb-2">
@@ -53,11 +117,13 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                         <SidebarNode
                           key={tool.name}
                           logo={tool.logo}
-                          title={tool.name}
+                          title={"Listen to " + tool.name}
                         />
+                        {tool.events.length > 0 && (
                         <div className="relative w-fit whitespace-nowrap text-sm b gray px-2 mb-2">
                         Bundle
                         </div>
+                        )}
                         {tool.events.map((item, key) => (
                           <SidebarNode
                             key={key}
@@ -79,10 +145,36 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                         ))}
                       </NodeGroup>
                     ))}
+                    
+                    
                   </div>
                 ))}
                  
-                 
+                   <div className="flex items-center text-sm uppercase b gray px-1 pt2 mb-2">
+                      <i className="material-symbols-outlined f2 gray mr-1 hidden">merge</i>
+                      Custom components
+                    </div>
+                    <SidebarNode
+                      key={"deployment-gates"}
+                      icon="data_object"
+                      title={"My custom component 1"}
+                      onAddNode={onAddNode}
+                      onDragStart={onDragStart}
+                    />
+                    <SidebarNode
+                      key={"deployment-gates"}
+                      icon="data_object"
+                      title={"My custom component 2"}
+                      onAddNode={onAddNode}
+                      onDragStart={onDragStart}
+                    />
+                    <SidebarNode
+                      key={"deployment-gates"}
+                      icon="data_object"
+                      title={"My custom component 3"}
+                      onAddNode={onAddNode}
+                      onDragStart={onDragStart}
+                    />
                    
                  
                 </div>

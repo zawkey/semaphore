@@ -35,28 +35,10 @@ export const categoriesList =
         "name": "GitLab",
         "logo": require("../images/icn-gitlab.svg").default,
         "actions": [
-          "Create Project",
-          "Clone Project",
-          "Push Commits",
-          "Create New Branch",
-          "Merge Branches",
-          "Open Merge Request",
-          "Close Merge Request",
-          "Add Member",
-          "Set Protected Branch",
-          "Delete Project"
+          
         ],
         "events": [
-          "Push Hook",
-          "Merge Request Opened",
-          "Merge Request Merged",
-          "Issue Created",
-          "Issue Closed",
-          "Note Created",
-          "Branch Push",
-          "Tag Push",
-          "Project Created",
-          "Wiki Page Updated"
+         
         ]
       },
       {

@@ -19,7 +19,7 @@ const SidebarNode = ({
           {icon && (
             <i className="material-symbols-outlined text-sm gray mr-1">{icon}</i>
           )}
-          <h3 className="relative capitalize black-90 text-md mb-0 tracking-[0] leading-[22px] self-stretch mb-0 f6 gray overflow-hidden text-ellipsis">
+          <h3 className="relative first-letter:uppercase black-90 f3 mb-0 tracking-[0] leading-[22px] self-stretch mb-0 f6 gray overflow-hidden text-ellipsis">
             {title}
           </h3>
         </div>
