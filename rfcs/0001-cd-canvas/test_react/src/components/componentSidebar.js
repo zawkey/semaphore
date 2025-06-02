@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import SidebarNode from "./SidebarNode";
-import { toolsList } from "./tools";
+import SidebarNode from "./sidebarNode";
 import NodeGroup from "./NodeGroup";
 import { categoriesList } from "./categoriesList";
 
