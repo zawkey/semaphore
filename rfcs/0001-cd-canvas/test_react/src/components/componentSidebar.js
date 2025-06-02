@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import SidebarNode from "./sidebarNode";
+import SidebarNode from "./SidebarNode";
 import { toolsList } from "./tools";
-import { nodesList } from "./nodes";
 import NodeGroup from "./NodeGroup";
 
 const ComponentSidebar = ({ onAddNode, onDragStart }) => {
@@ -10,7 +9,7 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
   const handleToggle = () => setIsOpen(!isOpen);
 
   return (
-    <div className={`relative h-full ${isOpen ? 'w-[332px]' : 'w-0'} bg-transparent transition-[width] duration-300 ease-linear`}>
+    <div className={`relative h-full ${isOpen ? 'w-[300px]' : 'w-0'} bg-transparent transition-[width] duration-300 ease-linear`}>
       <div className="absolute z-50 top-[1px] bottom-[0px]">
         <button
           className={`open-sidebar top-[0px] left-[4px] absolute z-40 !m-2 flex btn-secondary items-center gap-2 rounded-md border border-secondary-hover bg-white fill-foreground stroke-foreground py-2 px-4 text-primary shadow transition-all duration-300 ${isOpen ? 'pointer-events-none opacity-0 -translate-x-full' : 'pointer-events-all opacity-100 translate-x-0'}`}
@@ -20,7 +19,7 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
           <i className="material-symbols-outlined f2 gray -scale-x-100">menu_open</i>
         </button>
 
-        <div className={`flex h-full items-start z-50 w-[332px] transition-all duration-300 ${isOpen ? 'opacity-1 -translate-x-0' : 'opacity-0 -translate-x-full'}`}>
+        <div className={`flex h-full items-start z-50 w-[300px] transition-all duration-300 ${isOpen ? 'opacity-1 -translate-x-0' : 'opacity-0 -translate-x-full'}`}>
           <div className="flex h-full w-full flex-col sidebar-body bg-white relative self-stretch overflow-hidden">
             <div className="flex h-full w-full flex-col items-start py-0 relative flex-[0_0_auto] border-r [border-right-style:solid] border-[#0000001a]">
               <div className="flex flex-col w-100 items-start pt-0 pb-0 px-0 relative flex-[0_0_auto] border-0 border-none">
@@ -36,10 +35,9 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
               </div>
               <div className="flex min-h-0 flex-1 flex-col overflow-auto w-full">
                 <div className="relative flex w-full min-w-0 flex-col px-2">
-                <NodeGroup
-                      title="Source control"
-                       icon="merge"
-                    >
+                <div className="flex items-center text-md b gray px-1 mb-2">
+                  <i className="material-symbols-outlined f2 gray mr-1">merge</i>Source control
+                </div>
                   {toolsList.map((tool) => (
                    <NodeGroup
                       title={tool.name}
@@ -51,7 +49,6 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                       key={tool.name}
                       logo={tool.logo}
                       title={tool.name}
-                      description="Listen to GitHub repo"
                       onAddNode={onAddNode}
                       onDragStart={onDragStart}
                     />
@@ -79,7 +76,7 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                       ))}
                       </NodeGroup>
                   ))}
-                  </NodeGroup>
+                 
                    
                  
                 </div>
