@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SidebarNode from "./sidebarNode";
 import NodeGroup from "./NodeGroup";
-import { categoriesList } from "./categoriesList";
+import { categoriesList2 } from "./categoriesList2";
 
 const ComponentSidebar = ({ onAddNode, onDragStart }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -35,116 +35,48 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
               </div>
               <div className="flex min-h-0 flex-1 flex-col overflow-auto w-full">
                 <div className="relative flex w-full min-w-0 flex-col px-2">
-                  <div className="flex items-center text-sm uppercase b gray px-1 pt2 mb-2">
-                    <i className="material-symbols-outlined f2 gray mr-1 hidden">merge</i>
-                    Stages
-                  </div>
-                  <div className="pl1 pr2">
-                    <SidebarNode
-                      key={"deployment-gates"}
-                      logo={require("../images/logos/rocket.svg").default}
-                      title={"Pre-deployment"}
-                      onAddNode={onAddNode}
-                      onDragStart={onDragStart}
-                    />
-                    <SidebarNode
-                      key={"deployment-gates"}
-                      logo={require("../images/logos/rocket.svg").default}
-                      title={"Staging"}
-                      onAddNode={onAddNode}
-                      onDragStart={onDragStart}
-                    />
-                    <SidebarNode
-                      key={"deployment-gates"}
-                      logo={require("../images/logos/rocket.svg").default}
-                      title={"Production"}
-                      onAddNode={onAddNode}
-                      onDragStart={onDragStart}
-                    />
-                    <SidebarNode
-                      key={"deployment-gates"}
-                      logo={require("../images/logos/rocket.svg").default}
-                      title={"Something else"}
-                      onAddNode={onAddNode}
-                      onDragStart={onDragStart}
-                    />
-                  </div>
-                  <div className="flex items-center text-sm uppercase b gray px-1 pt2 mb-2">
-                    <i className="material-symbols-outlined f2 gray mr-1 hidden">merge</i>
-                    Deployment gates
-                  </div>
-                  <div className="pl1 pr2">
-                    <SidebarNode
-                      key={"deployment-gates"}
-                      logo={require("../images/logos/shield.svg").default}
-                      title={"Manual approval"}
-                      onAddNode={onAddNode}
-                      onDragStart={onDragStart}
-                    />
-                    <SidebarNode
-                      key={"deployment-gates"}
-                      logo={require("../images/logos/shield.svg").default}
-                      title={"Schedule restriction"}
-                      onAddNode={onAddNode}
-                      onDragStart={onDragStart}
-                    />
-                    <SidebarNode
-                      key={"deployment-gates"}
-                      logo={require("../images/logos/shield.svg").default}
-                      title={"Deployment window"}
-                      onAddNode={onAddNode}
-                      onDragStart={onDragStart}
-                    />
-                    <SidebarNode
-                      key={"deployment-gates"}
-                      logo={require("../images/logos/shield.svg").default}
-                      title={"Incident pauses"}
-                      onAddNode={onAddNode}
-                      onDragStart={onDragStart}
-                    />
-                  </div>
-                {categoriesList.map((category) => (
-                  <div key={category.category_name}>
-                    <div className="flex items-center text-sm uppercase b gray px-1 pt2 mb-2">
+                 
+                {categoriesList2.map((category) => (
+                  <div key={category.name}>
+                    <div className="flex items-center text-sm uppercase b px-1 pt2">
                       <i className="material-symbols-outlined f2 gray mr-1 hidden">merge</i>
-                      {category.category_name}
+                      {category.name}
+                      
                     </div>
-                    {category.tools.map((tool) => (
-                      <NodeGroup
-                        key={tool.name}
-                        title={tool.name}
-                        logo={tool.logo}
-                        collapsed={true}
-                      >
+                    <div className="pl1 pr2 text-sm mb-2 gray leading-[1.25]">
+                    {category.description}
+                    </div>
+                    {category.nodes.map((node) => (
+                      !node.apps &&
                         <SidebarNode
-                          key={tool.name}
-                          logo={tool.logo}
-                          title={"Listen to " + tool.name}
+                            key={node.name}
+                            icon={node.icon}
+                            title={node.name}
+                            onAddNode={onAddNode}
+                            onDragStart={onDragStart}
                         />
-                        {tool.events.length > 0 && (
-                        <div className="relative w-fit whitespace-nowrap text-sm b gray px-2 mb-2">
-                        Bundle
-                        </div>
-                        )}
-                        {tool.events.map((item, key) => (
+                    ))}
+                    {category.nodes.map((node) => (
+                      node.apps &&
+                      <NodeGroup
+                        key={node.name}
+                        title={node.name}
+                        icon={node.icon}
+                        onAddNode={onAddNode}
+                        onDragStart={onDragStart}
+                        expanded={false}
+                      >  
+                      {node.apps && node.apps.map((app) => (
+                        
                           <SidebarNode
-                            key={key}
-                            logo={tool.logo}
-                            title={item}
-                            icon="bolt"
-                            onAddNode={onAddNode}
-                            onDragStart={onDragStart}
+                              key={app.name}
+                              icon={app.icon}
+                              title={app.name}
+                              onAddNode={onAddNode}
+                              onDragStart={onDragStart}
                           />
-                        ))}
-                        {tool.actions.map((item, key) => (
-                          <SidebarNode
-                            key={key}
-                            logo={tool.logo}
-                            title={item}
-                            onAddNode={onAddNode}
-                            onDragStart={onDragStart}
-                          />
-                        ))}
+                       
+                      ))}
                       </NodeGroup>
                     ))}
                   </div>
