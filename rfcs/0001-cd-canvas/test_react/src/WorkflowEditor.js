@@ -94,21 +94,19 @@ const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDe
             <span className="br-pill bg-green w-[12px] h-[12px] ba bw1  b--lightest-green"></span>
             </Tippy>
             </div>
-          {(data.hasHealthCheck && data.healthCheckStatus === 'healthy') ? (
+          {(data.data?.healthCheckStatus === 'healthy') ? (
             <div className='flex items-center'>
             <Tippy content="Healthy. Last check run 2 hours ago" placement="top">
             <span className="br-pill bg-green w-[12px] h-[12px] ba bw1  b--lightest-green"></span>
             </Tippy>
             </div>
-          ) : null}
-          {(data.hasHealthCheck && data.healthCheckStatus === 'blocked') ? (
+          ) : data.data?.healthCheckStatus === 'blocked' ? (
             <div className='flex items-center'>
             <Tippy content="Blocked. Last check run 2 hours ago" placement="top">
             <span className="br-pill bg-red w-[12px] h-[12px] ba bw1  b--lightest-red"></span>
             </Tippy>
             </div>
-          ) : null}
-          {(data.hasHealthCheck && data.healthCheckStatus === 'warning') ? (
+          ) : data.data?.healthCheckStatus === 'warning' ? (
             <div className='flex items-center'>
             <Tippy content="Warning. Last check run 2 hours ago" placement="top">
             <span className="br-pill bg-yellow w-[12px] h-[12px] ba bw1  b--lightest-yellow"></span>
@@ -117,81 +115,57 @@ const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDe
           ) : null}
       </div>
       
-      <div className={`pa3 ${data.status === 'Passed' ? 'bg-washed-green b--green' : data.status === 'Failed' ? 'bg-washed-red b--red' : data.status === 'Running' ? 'bg-washed-blue b--blue' : data.status === 'Queued' ? 'bg-washed-yellow b--yellow' : 'bg-washed-green b--green'} w-full bt min-w-0 text-ellipsis overflow-hidden`}>
-      <div className="flex items-center w-full justify-between">
+      <div className={`pa3 ${data.status === 'Passed' ? 'bg-washed-green b--green' : data.status === 'Failed' ? 'bg-washed-red b--red' : data.status === 'Running' ? 'bg-washed-blue b--indigo' : data.status === 'Queued' ? 'bg-washed-yellow b--yellow' : 'bg-washed-green b--green'} w-full bt min-w-0 text-ellipsis overflow-hidden`}>
+      <div className="flex items-center w-full justify-between hidden">
         <div className="ttu f7 mb1">Last run</div>
         <div className="f6 black-60 text-xs">{data.timestamp}</div>
       </div>
   
         <div className="">
-            <div className='flex items-center mb1'>
-                  {(() => {
-                      switch (data.status.toLowerCase()) {
-                        case 'passed':
-                          return <span className="material-symbols-outlined fill green f1 mr1">check_circle</span>
-                        case 'failed':
-                          return <span className="material-symbols-outlined fill red f1 mr1">cancel</span>
-                        case 'queued':
-                          return <span className="material-symbols-outlined fill orange f1 mr1">queue</span>
-                        case 'running':
-                          return <span className="br-pill bg-blue w-[22px] h-[22px] b--lightest-blue text-center mr2"><span className="white f4 mr1 job-log-working"></span></span>
-                        default:
-                          return null
-                      }
-                  })()}
-                  <img alt="Favicon" className="h1 w1 mr2" src={semaphore}/>
-                <a href="#" className="min-w-0 fw6 font-normal flex items-center underline-hover truncate">
-                 BUG-213 When clicking on the...
-                </a>
-            </div>
-            
-            <div className='flex items-center'>
-              <div className='hidden'>
+    
+          
+              <div className='flex items-center justify-between mb2'>
                     {(() => {
                       switch (data.status.toLowerCase()) {
                         case 'passed':
-                          return <span className="material-symbols-outlined fill green f1 mr1">check_circle</span>
+                          return <a href="#" className=" link text-sm w-[4rem] inline-block lh-copy tc white mr2 ba br2 bg-green">Passed</a>
                         case 'failed':
-                          return <span className="material-symbols-outlined fill red f1 mr1">cancel</span>
+                          return <a href="#" className=" link text-sm w-[4rem] inline-block lh-copy tc white mr2 ba br2 bg-red">Failed</a>
                         case 'queued':
-                          return <span className="material-symbols-outlined fill orange f1 mr1">queue</span>
+                          return <a href="#" className=" link text-sm w-[4rem] inline-block lh-copy tc black mr2 ba br2 bg-orange">Queued</a>
                         case 'running':
-                          return <span className="blue f1 mr1 job-log-working"></span>
+                          return <a href="#" className=" link text-sm w-[4rem] inline-block lh-copy tc white mr2 ba br2 bg-blue">Running</a>
                         default:
                           return null
                       }
                     })()}
                 
 
-                
+                <div className="f6 black-60 text-xs">{data.timestamp}</div>
             </div>
-                <div className="flex items-center mt1 hidden">
-                    <span className="material-symbols-outlined f6">input</span>
-                    <span className="ml1 text-xs">Inputs</span>
-                </div>
-                <div className="flex flex-wrap gap-1 mt2">
-                <span className="bg-black-05 text-gray-700 text-xs px-2 pt-0.5 pb-0.5 rounded-full mr2">
-                code: {data.labels && data.labels[0] ? data.labels[0] : '—'}
-                </span>
-                <span className="bg-black-05 text-black-70 text-xs px-2 pt-0.5 pb-0.5 rounded-full mr2 b ba b--black-10">
-                image: {data.labels && data.labels[1] ? data.labels[1] : '—'}
-                </span>
-                <span className="bg-black-05 text-gray-700 text-xs px-2 pt-0.5 pb-0.5 rounded-full mr2">
-                terraform: {data.labels && data.labels[2] ? data.labels[2] : '—'}
-                </span>
-                <span className="bg-black-05 text-gray-700 text-xs px-2 pt-0.5 pb-0.5 rounded-full mr2">
-                type: {data.labels && data.labels[3] ? data.labels[3] : '—'}
-                </span>
-                </div>
-                <div className="text-xs mt1 hidden">
-                    <p>code: 1042a82</p>
-                    <p className='dark-green b'>image: v.4.1.3</p>
-                    <p>terraform: v.2.9.2</p>
-                    <p>type: community</p>
+            <div className='flex items-center'>
+              <img alt="Favicon" class="h1 w1 mr2" src={semaphore}/>
+                <a href="#" className="min-w-0 fw6 font-normal flex items-center underline-hover truncate">
+                 BUG-213 When clicking on the...
+                </a>
+            </div>
+            <div className="flex items-center mt1 hidden">
+                <span className="material-symbols-outlined f6">input</span>
+                <span className="ml1 text-xs">Inputs</span>
+            </div>
+               
+                <div className="text-xs mt1 lh-copy">
+                    <p className='lh-copy'>code: 1042a82</p>
+                    <p className='inline-block b'>*image: v.4.1.3*</p>
+                    <p className='lh-copy'>terraform: v.2.9.2</p>
+                    <p className='lh-copy'>type: community</p>
                 </div>
 
              
-            </div>
+        
+           
+            
+                    
         </div>
       </div>
       <div className="pa3 pt2 pb0 w-full">
@@ -199,27 +173,21 @@ const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDe
         <div className="w-full">
         <div className="min-w-0 text-ellipsis overflow-hidden">
               
-               {data.queue.length > 0 ? (
-                  <>
-                  {data.queue.map((item, idx) => (
-                    <div className='flex items-center w-full  p-2 bg-gray-100 br2 mt1'>
-                    <Tippy content="Need manual approval" placement="top">
-                      <div className="br-100 black bg-lightest-orange dark-orange w-[24px] h-[24px] mr2 flex items-center justify-center">
-                       
-                        <i className="material-symbols-outlined f3">how_to_reg</i>
-                      </div>
-                    </Tippy>
-                    <img alt="Favicon" className="h1 w1 mr2" src={semaphore}/>
-                    <a href="#" className="min-w-0 fw6 text-sm font-normal flex items-center underline-hover">
-                    <div className='truncate'>{item}</div>
-                    </a>
-                    </div>
-                  ))}
-                  </>
-                ) : (
-                  <div className="text-sm text-gray-500 italic">No items in queue</div>
-                )}
-               
+        {data.queue.length > 0 ? (
+            <>
+            {data.queue.map((item, idx) => (
+              <div key={idx} className="flex items-center p-2 bg-gray-50 rounded mb-1">
+              <div className={`material-symbols-outlined v-mid ${data.queueIconClass || 'purple'} b`}>
+              {data.queueIcon || 'flaky'}
+              </div>
+              <span className="text-sm ml2">{item}</span>
+              </div>
+            ))}
+            </>
+          ) : (
+            <div className="text-sm text-gray-500 italic">No items in queue</div>
+          )}
+                   
                 
               
               <div className='hidden text-align-right'>
@@ -248,128 +216,6 @@ const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDe
         <h3 className="font-semibold text-gray-900 mb-2">{data.name}</h3>
         <p className="text-gray-600 text-sm">{data.description}</p>
       </div>
-    </div>
-  );
-});
-// Custom stage component for the deployment card
-const DeploymentCardStage2 = React.memo(({ data, selected, onIconAction, id, onDelete }) => {
-  const [showOverlay, setShowOverlay] = React.useState(false);
-  const handleAction = React.useCallback((action) => {
-    if (action === 'code') setShowOverlay(true);
-    if (onIconAction) onIconAction(action);
-  }, [onIconAction]);
-  
-  const handleDelete = React.useCallback(() => {
-    if (onDelete) onDelete(id);
-  }, [onDelete, id]);
-  
-  // Use a fixed width to prevent resize observer loops and add white shadow
-  const nodeStyle = React.useMemo(() => ({
-    width: data.style?.width || 320,
-    boxShadow: '0 4px 12px rgba(128,128,128,0.20)', // White shadow
-  }), [data.style?.width]);
-  
-  return (
-    <div className={`bg-white roundedg border ${selected ? 'ring-2 ring-blue-500' : 'border-gray-200'} relative`} style={nodeStyle}>
-    
-    {/* Icon block above node when selected */}
-    {selected && (
-      <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex gap-2 bg-white shadow-gray-lg br4 px-3 py-2 border z-10">
-      <Tippy content="Delete this stage" placement="top">
-      <button className="hover:bg-red-100 text-red-600 p-2 br4" title="Delete Stage" onClick={handleDelete}>
-      <span className="material-icons" style={{fontSize:20}}>delete</span>
-      </button>
-      </Tippy>
-      <Tippy content="View code for this stage" placement="top">
-      <button className="hover:bg-gray-100 p-2 br4" title="View Code" onClick={() => handleAction('code')}>
-      <span className="material-icons" style={{fontSize:20}}>code</span>
-      </button>
-      </Tippy>
-      <Tippy content="Edit triggers for this stage" placement="top">
-      <button className="hover:bg-gray-100 p-2 br4" title="Edit Triggers" onClick={() => handleAction('edit')}>
-      <span className="material-icons" style={{fontSize:20}}>bolt</span>
-      </button>
-      </Tippy>
-      <Tippy content="Start a run for this stage" placement="top">
-      <button className="hover:bg-gray-100 p-2 br4" title="Start Run" onClick={() => handleAction('run')}>
-      <span className="material-icons" style={{fontSize:20}}>play_arrow</span>
-      </button>
-      </Tippy>
-
-      </div>
-    )}
-    {/* Modal overlay for View Code */}
-    <OverlayModal open={showOverlay} onClose={() => setShowOverlay(false)}>
-    <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16 }}>Stage Code</h2>
-    <div style={{ color: '#444', fontSize: 16, lineHeight: 1.7 }}>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et urna fringilla, tincidunt nulla nec, dictum erat. Etiam euismod, justo id facilisis dictum, urna massa dictum erat, eget dictum urna massa id justo. Praesent nec facilisis urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-    </div>
-    </OverlayModal>
-    {/* Custom Node Header */}
-    <div className="flex items-center px-3 py-2 border-b bg-gray-50 rounded-tg">
-    <span className="flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full mr-2">
-    <span className="material-symbols-outlined text-lg">{data.icon}</span>
-    </span>
-    <span className="font-bold text-gray-900 flex-1"></span>
-    
-    {/* Example action button (menu) */}
-    <button className="ml-2 p-1 rounded hover:bg-gray-200 transition" title="More actions">
-    <span className="material-symbols-outlined text-gray-500">more_vert</span>
-    </button>
-    </div>
-
-    <div className="pa3 flex justify-between bg-white">
-        <div className="flex items-center">
-            <div className="d-inline-block mr-2 w-[24px]">
-              <img src={rocket}/>
-            </div>
-            <p className="mb0 b ml1">{data.label}</p>
-        </div>
-
-        <div className="button-group">
-            <i className="material-icons" style={{fontSize:20}}>check_circle</i>
-        </div>
-    </div>
-
-    <div className="p-4">
-    <div className="flex justify-between items-center mb-3">
-    <span className={`status-badge ${data.status ? data.status.toLowerCase() : ''}`}>{data.status}</span>
-    <span className="text-xs text-gray-500">{data.timestamp}</span>
-    </div>
-    <div className="flex flex-wrap gap-1 mb-3">
-    <span className="pipeline-badge bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2">
-    code: {data.labels && data.labels[0] ? data.labels[0] : '—'}
-    </span>
-    <span className="pipeline-badge bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2">
-    image: {data.labels && data.labels[1] ? data.labels[1] : '—'}
-    </span>
-    <span className="pipeline-badge bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2">
-    terraform: {data.labels && data.labels[2] ? data.labels[2] : '—'}
-    </span>
-    <span className="pipeline-badge bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2">
-    type: {data.labels && data.labels[3] ? data.labels[3] : '—'}
-    </span>
-    </div>
-    </div>
-    <div className="border-t border-gray-200 p-4">
-    <h4 className="text-sm font-medium text-gray-700 mb-2">Run Queue</h4>
-    {data.queue.length > 0 ? (
-      <>
-      {data.queue.map((item, idx) => (
-        <div key={idx} className="flex items-center p-2 bg-gray-50 rounded mb-1">
-        <div className={`material-symbols-outlined v-mid ${data.queueIconClass || 'purple'} b`}>
-        {data.queueIcon || 'flaky'}
-        </div>
-        <span className="text-sm ml2">{item}</span>
-        </div>
-      ))}
-      </>
-    ) : (
-      <div className="text-sm text-gray-500 italic">No items in queue</div>
-    )}
-    </div>
-    <CustomBarHandle type="target" position={Position.Left} />
-    <CustomBarHandle type="source" position={Position.Right} />
     </div>
   );
 });
@@ -407,7 +253,7 @@ const GitHubIntegration = ({ data, selected }) => {
     </div>
     <div className="repo-info">
     <div className="mb-2">
-    <a href={data.repoUrl} className="link dark-indigo underline-hover flex items-center">
+    <a href={data.repoUrl} class="link dark-indigo underline-hover flex items-center">
     {data.repoName}
     </a>
     </div>
@@ -419,7 +265,9 @@ const GitHubIntegration = ({ data, selected }) => {
     
     <div className='flex items-center w-full p-2 bg-gray-100 br2 mb1'>
     <Tippy content="Need manual approval" placement="top">
-      <i className="material-symbols-outlined f3 fill br-100 black bg-washed-green black-60 p2 mr2">bolt</i>
+      <div className="br-100 black bg-washed-green black-60 w-[24px] h-[24px] mr2 flex items-center justify-center">
+        <i className="material-symbols-outlined f3 fill">bolt</i>
+      </div>
     </Tippy>
     <a href="#" className="min-w-0 fw6 text-sm font-normal flex items-center underline-hover">
     <div className='truncate'>https://hooks.semaphoreci.com/semaphore/semaphore/semaphore</div>
@@ -427,7 +275,9 @@ const GitHubIntegration = ({ data, selected }) => {
     </div>
     <div className='flex items-center w-full p-2 bg-gray-100 br2 mb1'>
     <Tippy content="Need manual approval" placement="top">
-      <i className="material-symbols-outlined f3 fill br-100 black bg-washed-green black-60 p2 mr2">bolt</i>
+      <div className="br-100 black bg-washed-green black-60 w-[24px] h-[24px] mr2 flex items-center justify-center">
+        <i className="material-symbols-outlined f3 fill">bolt</i>
+      </div>
     </Tippy>
     <a href="#" className="min-w-0 fw6 text-sm font-normal flex items-center underline-hover">
     <div className='truncate'>https://hooks.semaphoreci.com/semaphore/semaphore/semaphore</div>
@@ -435,7 +285,9 @@ const GitHubIntegration = ({ data, selected }) => {
     </div>
     <div className='flex items-center w-full p-2 bg-gray-100 br2 mb1'>
     <Tippy content="Need manual approval" placement="top">
-      <i className="material-symbols-outlined f3 fill br-100 black bg-washed-green black-60 p2 mr2">bolt</i>
+      <div className="br-100 black bg-washed-green black-60 w-[24px] h-[24px] mr2 flex items-center justify-center">
+        <i className="material-symbols-outlined f3 fill">bolt</i>
+      </div>
     </Tippy>
     <a href="#" className="min-w-0 fw6 text-sm font-normal flex items-center underline-hover">
     <div className='truncate'>https://hooks.semaphoreci.com/semaphore/semaphore/semaphore</div>
@@ -1262,6 +1114,7 @@ const initialStages = [
       label: 'Staging Environment',
       status: 'Passed',
       timestamp: 'Deployed just now',
+      healthCheckStatus: "",
       labels: ['7a9b23c', 'v.4.1.3', 'v.2.3.1', 'community'],
       queue: ['FEAT-312: Investigate flaky test'],
       queueIcon: 'flaky', // default icon
@@ -1282,6 +1135,7 @@ const initialStages = [
       label: 'Production - US',
       status: 'Failed',
       timestamp: 'Failed just now',
+      healthCheckStatus: "",
       labels: ['5e3d12b', 'v.4.1.3', 'v.2.3.1', 'community'],
       queue: [
         'FEAT-400: Flaky test detected',
@@ -1305,6 +1159,7 @@ const initialStages = [
       label: 'Production - JP',
       status: 'Passed',
       timestamp: 'Deployed just now',
+      healthCheckStatus: 'healthy',
       labels: ['5e3d12b', 'v.4.1.3', 'v.2.3.1', 'community'],
       queue: ['FEAT-211: Partially rebuild pipeline'],
       queueIcon: 'timer', // orange timer icon
@@ -1325,6 +1180,7 @@ const initialStages = [
       label: 'Production - EU',
       status: 'Running',
       timestamp: 'Deploying now',
+      healthCheckStatus: 'blocked',
       labels: ['5e3d12b', 'v.4.1.3', 'v.2.3.1', 'community'],
       queue: [],
       queueIcon: 'flaky', // default icon
@@ -1351,6 +1207,7 @@ const initialStages = [
         timestamp: '2025-04-09 09:30 AM'
       },
       status: 'Passed',
+      healthCheckStatus: "",
       timestamp: 'Deployed 2 hours ago',
       labels: ['3e7a91d', 'v.4.1.3', 'v.2.3.1', 'community'],
       queue: ['Test: Integration tests', 'Test: Performance benchmarks'],
@@ -1372,6 +1229,7 @@ const initialStages = [
       label: 'Platform Test',
       status: 'Passed',
       timestamp: 'Completed 1 hour ago',
+      healthCheckStatus: 'warning',
       labels: ['3e7a91d', 'v.4.1.3', 'v.2.3.1', 'community'],
       queue: ['Test: Integration tests', 'Test: Performance benchmarks'],
       queueIcon: 'flaky', // default icon
@@ -1392,6 +1250,7 @@ const initialStages = [
       label: 'Infra - Publish',
       status: 'Running',
       timestamp: 'Deploying now',
+      healthCheckStatus: "",
       labels: ['3e7a91d', 'v.4.1.3', 'v.2.3.1', 'community'],
       queue: [],
       queueIcon: 'flaky', // default icon
