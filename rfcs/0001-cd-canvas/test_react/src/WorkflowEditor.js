@@ -199,7 +199,7 @@ const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDe
                   {data.queue.map((item, idx) => (
                     <div className='flex items-center w-full  p-2 bg-gray-100 br2 mt1'>
                     <Tippy content="Need manual approval" placement="top">
-                      <div className="br-100 black bg-lightest-orange dark-orange w-[24px] h-[24px] mr2 flex items-center justify-center h-screen">
+                      <div className="br-100 black bg-lightest-orange dark-orange w-[24px] h-[24px] mr2 flex items-center justify-center">
                        
                         <i className="material-symbols-outlined f3">how_to_reg</i>
                       </div>
@@ -414,9 +414,7 @@ const GitHubIntegration = ({ data, selected }) => {
     
     <div className='flex items-center w-full p-2 bg-gray-100 br2 mb1'>
     <Tippy content="Need manual approval" placement="top">
-      <div className="br-100 black bg-washed-green black-60 w-[24px] h-[24px] mr2 flex items-center justify-center h-screen">
-        <i className="material-symbols-outlined f3 fill">bolt</i>
-      </div>
+      <i className="material-symbols-outlined f3 fill br-100 black bg-washed-green black-60 p2 mr2">bolt</i>
     </Tippy>
     <a href="#" className="min-w-0 fw6 text-sm font-normal flex items-center underline-hover">
     <div className='truncate'>https://hooks.semaphoreci.com/semaphore/semaphore/semaphore</div>
@@ -424,9 +422,7 @@ const GitHubIntegration = ({ data, selected }) => {
     </div>
     <div className='flex items-center w-full p-2 bg-gray-100 br2 mb1'>
     <Tippy content="Need manual approval" placement="top">
-      <div className="br-100 black bg-washed-green black-60 w-[24px] h-[24px] mr2 flex items-center justify-center h-screen">
-        <i className="material-symbols-outlined f3 fill">bolt</i>
-      </div>
+      <i className="material-symbols-outlined f3 fill br-100 black bg-washed-green black-60 p2 mr2">bolt</i>
     </Tippy>
     <a href="#" className="min-w-0 fw6 text-sm font-normal flex items-center underline-hover">
     <div className='truncate'>https://hooks.semaphoreci.com/semaphore/semaphore/semaphore</div>
@@ -434,9 +430,7 @@ const GitHubIntegration = ({ data, selected }) => {
     </div>
     <div className='flex items-center w-full p-2 bg-gray-100 br2 mb1'>
     <Tippy content="Need manual approval" placement="top">
-      <div className="br-100 black bg-washed-green black-60 w-[24px] h-[24px] mr2 flex items-center justify-center h-screen">
-        <i className="material-symbols-outlined f3 fill">bolt</i>
-      </div>
+      <i className="material-symbols-outlined f3 fill br-100 black bg-washed-green black-60 p2 mr2">bolt</i>
     </Tippy>
     <a href="#" className="min-w-0 fw6 text-sm font-normal flex items-center underline-hover">
     <div className='truncate'>https://hooks.semaphoreci.com/semaphore/semaphore/semaphore</div>
