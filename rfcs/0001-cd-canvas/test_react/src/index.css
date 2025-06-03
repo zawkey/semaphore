@@ -51,7 +51,7 @@ code {
 .sidebar-hidden #sidebar-toggle i{
   transform: scaleX(-1);
 }
-.node:hover .icons{
+.node:hover .add-node{
   visibility: visible;
 }
 

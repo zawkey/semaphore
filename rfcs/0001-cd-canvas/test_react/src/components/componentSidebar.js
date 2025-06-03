@@ -37,78 +37,48 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                 <div className="relative flex w-full min-w-0 flex-col px-2">
                  
                 {categoriesList2.map((category) => (
-                  <div key={category.name}>
-                    <div className="flex items-center text-sm uppercase b px-1 pt2">
-                      <i className="material-symbols-outlined f2 gray mr-1 hidden">merge</i>
-                      {category.name}
-                      
-                    </div>
-                    <div className="pl1 pr2 text-sm mb-2 gray leading-[1.25]">
-                    {category.description}
-                    </div>
-                    {category.nodes.map((node) => (
-                      !node.apps &&
+                  <NodeGroup
+                    key={category.name}
+                    title={category.name}
+                    icon={category.icon}
+                    collapsed={true}
+                  >
+                    {category.nodes.map((node) => 
+                      !node.apps ? (
                         <SidebarNode
-                            key={node.name}
-                            icon={node.icon}
-                            title={node.name}
-                            onAddNode={onAddNode}
-                            onDragStart={onDragStart}
+                          key={node.name}
+                          icon={node.icon}
+                          title={node.name}
+                          onAddNode={onAddNode}
+                          onDragStart={onDragStart}
                         />
-                    ))}
-                    {category.nodes.map((node) => (
-                      node.apps &&
-                      <NodeGroup
-                        key={node.name}
-                        title={node.name}
-                        icon={node.icon}
-                        onAddNode={onAddNode}
-                        onDragStart={onDragStart}
-                        expanded={false}
-                      >  
-                      {node.apps && node.apps.map((app) => (
-                        
-                          <SidebarNode
+                      ) : (
+
+                        node.apps.map((app) => (
+                            <NodeGroup
                               key={app.name}
-                              icon={app.icon}
                               title={app.name}
-                              onAddNode={onAddNode}
-                              onDragStart={onDragStart}
-                          />
-                       
-                      ))}
-                      </NodeGroup>
-                    ))}
-                  </div>
+                              logo={app.logo}
+                              collapsed={true}
+                            >
+                              {app.events.map((event) => (
+                                <SidebarNode
+                                  key={event}
+                                  logo={app.logo}
+                                  title={event}
+                                  onAddNode={onAddNode}
+                                  onDragStart={onDragStart}
+                                />
+                              ))}
+                            </NodeGroup>
+                          
+                        ))
+                      )
+                    )}
+                  </NodeGroup>
                 ))}
                  
-                   <div className="flex items-center text-sm uppercase b gray px-1 pt2 mb-2">
-                      <i className="material-symbols-outlined f2 gray mr-1 hidden">merge</i>
-                      Custom components
-                    </div>
-                    <div className="pl1 pr2">
-                    <SidebarNode
-                      key={"deployment-gates"}
-                      icon="data_object"
-                      title={"My custom component 1"}
-                      onAddNode={onAddNode}
-                      onDragStart={onDragStart}
-                    />
-                    <SidebarNode
-                      key={"deployment-gates"}
-                      icon="data_object"
-                      title={"My custom component 2"}
-                      onAddNode={onAddNode}
-                      onDragStart={onDragStart}
-                    />
-                    <SidebarNode
-                      key={"deployment-gates"}
-                      icon="data_object"
-                      title={"My custom component 3"}
-                      onAddNode={onAddNode}
-                      onDragStart={onDragStart}
-                    />
-                   </div>
+           
                  
                 </div>
               </div>

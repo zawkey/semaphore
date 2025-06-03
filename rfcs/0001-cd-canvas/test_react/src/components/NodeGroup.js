@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import AnimateHeight from 'react-animate-height';
 const NodeGroup = ({ title, icon, logo, children, collapsed = false }) => {
   const [isNodesCollapsed, setIsNodesCollapsed] = useState(collapsed);
   const handleToggle = () => setIsNodesCollapsed(!isNodesCollapsed);
@@ -27,10 +27,12 @@ const NodeGroup = ({ title, icon, logo, children, collapsed = false }) => {
       </div>
      
     
-        <div className={`max-w-100 categories grid grid-rows-0 transition-[grid-template-rows] duration-250 mt-2`}>
-        {!isNodesCollapsed && ( 
-          children
-        )}
+        <div className={`max-w-100 categories mt-2`}>
+        <AnimateHeight duration={200} height={!isNodesCollapsed ? "auto" : 0}>
+            {!isNodesCollapsed && ( 
+              children
+            )}
+          </AnimateHeight>
         </div>
      
     </div>

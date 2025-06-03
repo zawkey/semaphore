@@ -471,6 +471,7 @@ export const categoriesList2 =
         "id": "triggers",
         "name": "Triggers",
         "description": "Events that start your workflow.",
+        "icon": "ads_click",
         "nodes": [
             {
             "id": "trigger-manual",
@@ -493,6 +494,7 @@ export const categoriesList2 =
         "id": "build_package",
         "name": "Build & Package",
         "description": "Steps for compiling code and creating deployable artifacts.",
+        "icon": "build",
         "nodes": [
             {
             "id": "action-compile-code",
@@ -542,6 +544,7 @@ export const categoriesList2 =
         "id": "testing_quality",
         "name": "Testing & Quality",
         "description": "Steps for validating your application's functionality and security.",
+        "icon": "account_tree",
         "nodes": [
             {
             "id": "action-run-integration-tests",
@@ -584,6 +587,7 @@ export const categoriesList2 =
         "id": "deployment",
         "name": "Deployment",
         "description": "Steps for deploying your application to various environments.",
+        "icon": "rocket_launch",
         "nodes": [
             {
             "id": "action-deploy-to-env",
@@ -633,6 +637,7 @@ export const categoriesList2 =
         "id": "control_flow_utilities",
         "name": "Control Flow & Utilities",
         "description": "Logic and utility steps for advanced workflow control.",
+        "icon": "call_split",
         "nodes": [
             {
             "id": "control-if-else",
@@ -682,6 +687,7 @@ export const categoriesList2 =
         "id": "integrations_notifications",
         "name": "Integrations & Notifications",
         "description": "Steps for connecting to external services and sending alerts.",
+        "icon": "email",
         "nodes": [
             {
             "id": "integration-send-email",
@@ -719,5 +725,27 @@ export const categoriesList2 =
             "description": "Sends metrics to a monitoring system (e.g., Datadog, Prometheus)."
             }
         ]
-    }
+    },
+    {
+        "id": "custom-components",
+        "name": "Custom Components",
+        "description": "Custom components for your workflow.",
+        "icon": "manufacturing",
+        "nodes": [
+            {
+            "id": "custom-component",
+            "type": "trigger",
+            "name": "Custom component 1",
+            "icon": "manufacturing",
+            "description": "Custom component 1 description"
+            },
+            {
+            "id": "custom-component",
+            "type": "trigger",
+            "name": "Custom component 2",
+            "icon": "manufacturing",
+            "description": "Custom component 2 description"
+            }
+        ]
+    },
 ]
