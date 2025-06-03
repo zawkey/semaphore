@@ -64,3 +64,6 @@ code {
 .expanded .categories > div{
   overflow: hidden;
 }
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+}
