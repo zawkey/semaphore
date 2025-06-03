@@ -134,7 +134,7 @@ const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDe
                           return null
                       }
                   })()}
-                  <img alt="Favicon" class="h1 w1 mr2" src={semaphore}/>
+                  <img alt="Favicon" className="h1 w1 mr2" src={semaphore}/>
                 <a href="#" className="min-w-0 fw6 font-normal flex items-center underline-hover truncate">
                  BUG-213 When clicking on the...
                 </a>
@@ -204,7 +204,7 @@ const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDe
                         <i className="material-symbols-outlined f3">how_to_reg</i>
                       </div>
                     </Tippy>
-                    <img alt="Favicon" class="h1 w1 mr2 bg-near-white" src={semaphore}/>
+                    <img alt="Favicon" className="h1 w1 mr2" src={semaphore}/>
                     <a href="#" className="min-w-0 fw6 text-sm font-normal flex items-center underline-hover">
                     <div className='truncate'>{item}</div>
                     </a>
@@ -402,7 +402,7 @@ const GitHubIntegration = ({ data, selected }) => {
     </div>
     <div className="repo-info">
     <div className="mb-2">
-    <a href={data.repoUrl} class="link dark-indigo underline-hover flex items-center">
+    <a href={data.repoUrl} className="link dark-indigo underline-hover flex items-center">
     {data.repoName}
     </a>
     </div>
