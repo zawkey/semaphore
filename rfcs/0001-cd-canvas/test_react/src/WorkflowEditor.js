@@ -89,6 +89,11 @@ const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDe
           <span className="material-symbols-outlined mr1">rocket_launch</span>
               <p className="mb0 b ml1">{data.label}</p>
           </div>
+          <div className='flex items-center'>
+            <Tippy content="Healthy. Last check run 2 hours ago" placement="top">
+            <span className="br-pill bg-green w-[12px] h-[12px] ba bw1  b--lightest-green"></span>
+            </Tippy>
+            </div>
           {(data.hasHealthCheck && data.healthCheckStatus === 'healthy') ? (
             <div className='flex items-center'>
             <Tippy content="Healthy. Last check run 2 hours ago" placement="top">
