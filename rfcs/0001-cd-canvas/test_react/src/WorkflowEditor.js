@@ -374,7 +374,71 @@ const DeploymentCardStage2 = React.memo(({ data, selected, onIconAction, id, onD
     </div>
   );
 });
+const DeploymentCardStageCircle = React.memo(({ data, selected, onIconAction, id, onDelete }) => {
+  const [showOverlay, setShowOverlay] = React.useState(false);
 
+  const handleAction = React.useCallback((action) => {
+    if (action === 'code') setShowOverlay(true);
+    if (onIconAction) onIconAction(action);
+  }, [onIconAction]);
+  
+  const handleDelete = React.useCallback(() => {
+    if (onDelete) onDelete(id);
+  }, [onDelete, id]);
+  
+  // Use a fixed width to prevent resize observer loops and add white shadow
+  const nodeStyle = React.useMemo(() => ({
+    width: data.style?.width || 150,
+    height: data.style?.height || 150,
+    boxShadow: '0 4px 12px rgba(128,128,128,0.20)', // White shadow
+  }), [data.style?.width]);
+
+  return (
+    <div className={`bg-white br2 ba bw1  ${selected ? 'b--indigo' : 'b--lighter-gray'} relative`} style={nodeStyle}>
+      {/* Icon block above node when selected */}
+      {selected && (
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex gap-2 bg-white shadow-gray-lg br2 px-2 py-1 border z-10">
+        <Tippy content="Start a run for this stage" placement="top">
+        <button className="hover:bg-gray-100 text-black-60 px-2 py-1 br2 leading-none" title="Start Run" onClick={() => handleAction('run')}>
+        <span className="material-icons" style={{fontSize:20}}>play_arrow</span>
+        </button>
+        </Tippy>
+        <Tippy content="View code for this stage" placement="top">
+        <button className="hover:bg-gray-100 text-black-60 px-2 py-1 br2 leading-none" title="View Code" onClick={() => handleAction('code')}>
+        <span className="material-icons" style={{fontSize:20}}>code</span>
+        </button>
+        </Tippy>
+        <Tippy content="Delete this stage" placement="top">
+        <button className="hover:bg-red-100 hover:text-red-600 text-black-60 px-2 py-1 br2 leading-none" title="Delete Stage" onClick={handleDelete}>
+        <span className="material-icons" style={{fontSize:20}}>delete</span>
+        </button>
+        </Tippy>
+        </div>
+      )}
+      
+      {/* Modal overlay for View Code */}
+      <OverlayModal open={showOverlay} onClose={() => setShowOverlay(false)}>
+        <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16 }}>Stage Code</h2>
+        <div style={{ color: '#444', fontSize: 16, lineHeight: 1.7 }}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et urna fringilla, tincidunt nulla nec, dictum erat. Etiam euismod, justo id facilisis dictum, urna massa dictum erat, eget dictum urna massa id justo. Praesent nec facilisis urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+        </div>
+      </OverlayModal>
+      
+      {/* Circle with logo */}
+      <div className={`flex items-center justify-center w-full h-full ${selected ? 'b--indigo' : 'b--lighter-gray'} ${data.status.toLowerCase()  === 'passed' ? 'bg-washed-green b--green' : data.status.toLowerCase() === 'failed' ? 'bg-washed-red b--red' : data.status.toLowerCase() === 'running' ? 'bg-washed-blue b--blue' : data.status.toLowerCase() === 'queued' ? 'bg-washed-yellow b--yellow' : 'b--green'}`}>
+        <div className={`br-100 w-[${data.style?.width}px] h-[${data.style?.height}px] flex items-center justify-center`}>
+          <i className='material-symbols-outlined text-6xl'>rocket_launch</i>
+        </div>
+      </div>
+      <div className='flex items-center justify-center pt2'>
+       <p className='b text-center'>{data.label}</p>
+      </div>
+      {/* Handles */}
+      <CustomBarHandle type="target" position={Position.Left} />
+      <CustomBarHandle type="source" position={Position.Right} />
+    </div>
+  );
+});
 // Custom integration component for GitHub repository
 const GitHubIntegration = ({ data, selected }) => {
   // Select header color and icon based on integrationType
@@ -926,7 +990,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
     }}
     >
     {/* Sidebar Header with Stage Name */}
-    <div className="sidebar-header bg-near-white bb b--black-10 ">
+    <div className="sidebar-header bb b--black-10 ">
     <div className="sidebar-header-title flex items-center">
     {selectedStage.type === 'deploymentCard' ? (
         <span class="material-symbols-outlined mr1">rocket_launch</span>
@@ -942,7 +1006,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
     </div>
     
     {/* Sidebar Tabs */}
-    <div className="sidebar-tabs bg-near-white ph2">
+    <div className="sidebar-tabs ph2">
     {tabs.map(tab => (
       <button
       key={tab.key}
@@ -953,7 +1017,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
       </button>
     ))}
     </div>
-    <div className="sidebar-content bg-near-white min-h-0 relative overflow-auto">
+    <div className="sidebar-content min-h-0 relative overflow-auto">
     {renderTabContent()}
     </div>
     
@@ -1472,7 +1536,7 @@ function WorkflowEditor() {
   
   // Define stage types using memoization to prevent unnecessary re-renders
   const stageTypes = React.useMemo(() => ({
-    deploymentCard: (props) => <DeploymentCardStage {...props} onDelete={handleDeleteStage} id={props.id}/>,
+    deploymentCard: (props) => <DeploymentCardStageCircle {...props} onDelete={handleDeleteStage} id={props.id}/>,
     githubIntegration: GitHubIntegration,
   }), []); 
   
