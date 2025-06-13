@@ -120,7 +120,7 @@ const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDe
       
       <div className={`pa3 ${data.status === 'Passed' ? 'bg-washed-green b--green' : data.status === 'Failed' ? 'bg-washed-red b--red' : data.status === 'Running' ? 'bg-washed-blue b--blue' : data.status === 'Queued' ? 'bg-washed-yellow b--yellow' : 'bg-washed-green b--green'} w-full bt min-w-0 text-ellipsis overflow-hidden`}>
       <div className="flex items-center w-full justify-between">
-        <div className="ttu f7 mt3 mb2">Last run</div>
+        <div className="ttu f7 mt0 mb2">Last run</div>
         <div className="f6 black-60 text-xs">{data.timestamp}</div>
       </div>
   

@@ -29,7 +29,10 @@ const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, ext
            <img src={semaphore} width={20} className="mx-1"/>
            <a href="#" className="truncate ml2">{commitTitle}</a>
            </div>
+           <div className="flex items-center">
            <div className="f5 gray ml2 ml3-m ml0 mr3 tr">{timestamp}</div>
+           {status.toLowerCase() === 'queued' && <button className="btn btn-secondary btn-small"><i className="material-symbols-outlined text-sm">close</i></button>}
+           </div>
       </div>
       {needApproval && (
           <div className="flex items-center justify-between mt1 bt b--black-075 py-2">
@@ -37,7 +40,9 @@ const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, ext
               <span className="material-symbols-outlined f6">check_circle</span>
               <div className="ml1">approved by <a href="#" className="black underline">1 person</a>, waiting for 2 more</div>
             </div>
-            <button className="btn btn-primary btn-small">✓ Approve</button>
+            <div className="flex items-center">
+                <button className="btn btn-primary btn-small mr2">✓ Approve</button>
+            </div>
           </div>
         )}
       <div className="flex items-center w-full bt b--black-075 pt2">
