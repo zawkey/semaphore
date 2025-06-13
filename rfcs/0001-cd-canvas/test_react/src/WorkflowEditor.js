@@ -455,7 +455,7 @@ const GitHubIntegration = ({ data, selected }) => {
 
 // Sidebar component to display selected stage details
 const Sidebar = React.memo(({ selectedStage, onClose }) => {
-  const [activeTab, setActiveTab] = useState('general');
+  const [activeTab, setActiveTab] = useState('runs');
   const [width, setWidth] = useState(600);
   const isDragging = useRef(false);
   const sidebarRef = useRef(null);
@@ -463,6 +463,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
   
   // Sidebar tab definitions - memoized to prevent unnecessary re-renders
   const tabs = React.useMemo(() => [
+    { key: 'runs', label: 'Runs' },
     { key: 'general', label: 'General' },
     { key: 'history', label: 'History' },
     { key: 'queue', label: 'Queue' },
@@ -515,6 +516,10 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
   // Render the appropriate content based on the active tab
   const renderTabContent = () => {
     switch (activeTab) {
+      case 'runs':
+        return (
+          <div className="pv3 ph4"></div>
+        );
       case 'general':
       return (
         <div className="pv3 ph4">
@@ -523,6 +528,41 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
         <p className="mb3">A record of recent executions for this stage.</p>
         
         {/* Latest Run */}
+        
+        <div className="flex-m mv3">
+        <div className="w4">
+        <div className="f5 gray pt1">May 5, 2020</div>
+        </div>
+        <div className="flex items-center w-full">
+        {/* Section 1: Status icon (example: done_all) */}
+        <div className="flex items-center justify-center">
+        <div className="mr3 br-100 ba b--orange bw1 tc" style={{ width: '32px', height: '32px' }}>
+        <div className="material-symbols-outlined v-mid orange b">more_horiz</div>
+        </div>
+        </div>
+        {/* Section 2: Commit info and badges */}
+        <div className="w-70">
+        <div className="flex items-center">
+        <span className="material-symbols-outlined b f4 v-mid">commit</span>
+        <a href="#" className="truncate ml2">BUG-634: Add Cucumber Tests</a>
+        </div>
+        <div className="flex">
+        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge">code: 1045a77</span>
+        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge ba b--black-50 bw1">image: v.1.0.0</span>
+        <span className="text-xs px-2 py-1 rounded-full mr2 pipeline-badge cursor-pointer bg-gray-100 text-gray-700 hover:bg-gray-200 transition">+2 more</span>
+        </div>
+        </div>
+        {/* Section 3: Action icons right-aligned */}
+        <div className="w-1/4 flex items-center justify-end">
+        <div className="f5 gray ml2 ml3-m ml0 mr3 tr">8 minutes ago</div>
+        </div>
+        </div>
+        </div>
+
+
+
+
+
         <div className="bg-white shadow-1 mv3 ph3 pv2 br3 wf-insights-selected">
         <div className="flex pv1">
         <div className="w-60 mb2 mb1">
@@ -978,7 +1018,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
       minWidth: 300,
       maxWidth: 800,
       position: 'fixed',
-      top: 0,
+      top: 48,
       right: 0,
       height: '100vh',
       zIndex: 10,
@@ -990,10 +1030,11 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
     }}
     >
     {/* Sidebar Header with Stage Name */}
-    <div className="sidebar-header">
+    <div className="sidebar-header bg-white">
     <div className="sidebar-header-title flex items-center">
     {selectedStage.type === 'deploymentCard' ? (
-      <span className="material-symbols-outlined mr1 pointer black b">{selectedStage.data.icon}</span>
+        <span class="material-symbols-outlined mr1">rocket_launch</span>
+    
     ) : (
       <svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor">
       <path fillRule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.01.08-2.11 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.11.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
@@ -1835,7 +1876,7 @@ function WorkflowEditor() {
      
       <button
         onClick={handleExport}
-        style={{ position: 'absolute', top: 66, right: 16, zIndex: 1000, background: '#222', color: 'white', padding: '10px 18px', borderRadius: 6, border: 'none', fontWeight: 600, cursor: 'pointer', boxShadow: '0 2px 8px rgba(128,128,128,0.20)' }}
+        style={{ position: 'absolute', top: 4, right: 8, zIndex: 1000, background: '#222', color: 'white', padding: '8px 16px', borderRadius: 4, border: 'none', fontWeight: 600, cursor: 'pointer', boxShadow: '0 2px 8px rgba(128,128,128,0.20)' }}
       >
         Export as Image
       </button>
