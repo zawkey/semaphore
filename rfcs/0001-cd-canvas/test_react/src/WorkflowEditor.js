@@ -3,6 +3,7 @@ import * as htmlToImage from 'html-to-image';
 import rocket from './images/logos/rocket.svg';
 import semaphore from './images/semaphore-logo-sign-black.svg';
 import kubernetes from './images/logos/kubernetes.svg';
+import RunItem from './components/RunItem';
 import github from './images/icn-github.svg';
 import s3 from './images/logos/aws-cloudformation.svg';
 import ReactFlow, {
@@ -453,65 +454,6 @@ const GitHubIntegration = ({ data, selected }) => {
   );
 };
 
-// RunItem component - reusable component for displaying a single run
-const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, extraTags, timestamp, date, needApproval }) => {
-  return (
-    <div className="run-item flex-m mv1 b--black-075 bw1 br3 pa2 bg-white">
-      <div className="w4">
-        <div className="f5 gray pt1 hidden">May 5, 2020</div>
-      </div>
-      <div className="flex items-center w-full">
-        {/* Status icon */}
-        <div className="flex items-center justify-center">
-          {(() => {
-            switch (status.toLowerCase()) {
-              case 'passed':
-                return <span className="material-symbols-outlined fill green f1 mr1">check_circle</span>
-              case 'failed':
-                return <span className="material-symbols-outlined fill red f1 mr1">cancel</span>
-              case 'queued':
-                return <span className="material-symbols-outlined fill orange f1 mr1">queue</span>
-              case 'running':
-                return <span className="br-pill bg-blue w-[22px] h-[22px] b--lightest-blue text-center mr2"><span className="white f4 mr1 job-log-working"></span></span>
-              default:
-                return null
-            }
-          })()}
-        </div>
-        {/* Commit info and badges */}
-        <div className="w-70">
-          <div className="flex items-center">
-            <a href="#" className="truncate ml2">{commitTitle}</a>
-          </div>
-          <div className="flex">
-            <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge">code: {commitHash}</span>
-            <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge ba b--black-50 bw1">image: {imageVersion}</span>
-            {extraTags && (
-              <span className="text-xs px-2 py-1 rounded-full mr2 pipeline-badge cursor-pointer bg-gray-100 text-gray-700 hover:bg-gray-200 transition">{extraTags}</span>
-            )}
-          </div>
-        </div>
-        {/* Timestamp */}
-        <div className="w-1/4 flex items-center justify-end">
-          <div className="">
-            <div className="f5 gray ml2 ml3-m ml0 mr3 tr">{timestamp}</div>
-            <div className="f5 gray ml2 ml3-m ml0 mr3 tr">{date}</div>
-          </div>
-        </div>
-      </div>
-      {needApproval ? (
-        <div className="flex items-center justify-between mt1 bt b--black-075 pt2">
-          <div className='flex items-center text-xs'>
-            <span className="material-symbols-outlined f6">check_circle</span>
-            <div className="ml1">approved by <a href="#" className="black underline">1 person</a>, waiting for 2 more</div>
-          </div>
-          <button className="btn btn-primary btn-small">✓ Approve</button>
-        </div>
-      ) : null}
-    </div>
-  );
-});
-
 // Sidebar component to display selected stage details
 const Sidebar = React.memo(({ selectedStage, onClose }) => {
   const [activeTab, setActiveTab] = useState('general');
@@ -656,7 +598,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
             commitTitle="BUG-634: Add Cucumber Tests"
             commitHash="1045a77"
             imageVersion="v.1.2.1"
-            extraTags="+2 more"
+            extraTags="+1 more"
             timestamp="8 minutes ago"
             date="Today"
           />
@@ -970,10 +912,11 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
       width: width,
       minWidth: 300,
       maxWidth: 800,
-      position: 'fixed',
+      position: 'absolute',
+      height: 'auto',
       top: 48,
       right: 0,
-      height: '100vh',
+      bottom: 0,
       zIndex: 10,
       boxShadow: 'rgba(0,0,0,0.07) -2px 0 12px',
       background: '#fff',
@@ -1010,7 +953,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
       </button>
     ))}
     </div>
-    <div className="sidebar-content bg-near-white h-full">
+    <div className="sidebar-content bg-near-white min-h-0 relative overflow-auto">
     {renderTabContent()}
     </div>
     
