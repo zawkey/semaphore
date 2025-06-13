@@ -119,7 +119,7 @@ const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDe
       
       <div className={`pa3 ${data.status === 'Passed' ? 'bg-washed-green b--green' : data.status === 'Failed' ? 'bg-washed-red b--red' : data.status === 'Running' ? 'bg-washed-blue b--blue' : data.status === 'Queued' ? 'bg-washed-yellow b--yellow' : 'bg-washed-green b--green'} w-full bt min-w-0 text-ellipsis overflow-hidden`}>
       <div className="flex items-center w-full justify-between">
-        <div className="ttu f7 mb1">Last run</div>
+        <div className="ttu f7 mt3 mb2">Last run</div>
         <div className="f6 black-60 text-xs">{data.timestamp}</div>
       </div>
   
@@ -453,9 +453,68 @@ const GitHubIntegration = ({ data, selected }) => {
   );
 };
 
+// RunItem component - reusable component for displaying a single run
+const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, extraTags, timestamp, date, needApproval }) => {
+  return (
+    <div className="run-item flex-m mv1 b--black-075 bw1 br3 pa2 bg-white">
+      <div className="w4">
+        <div className="f5 gray pt1 hidden">May 5, 2020</div>
+      </div>
+      <div className="flex items-center w-full">
+        {/* Status icon */}
+        <div className="flex items-center justify-center">
+          {(() => {
+            switch (status.toLowerCase()) {
+              case 'passed':
+                return <span className="material-symbols-outlined fill green f1 mr1">check_circle</span>
+              case 'failed':
+                return <span className="material-symbols-outlined fill red f1 mr1">cancel</span>
+              case 'queued':
+                return <span className="material-symbols-outlined fill orange f1 mr1">queue</span>
+              case 'running':
+                return <span className="br-pill bg-blue w-[22px] h-[22px] b--lightest-blue text-center mr2"><span className="white f4 mr1 job-log-working"></span></span>
+              default:
+                return null
+            }
+          })()}
+        </div>
+        {/* Commit info and badges */}
+        <div className="w-70">
+          <div className="flex items-center">
+            <a href="#" className="truncate ml2">{commitTitle}</a>
+          </div>
+          <div className="flex">
+            <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge">code: {commitHash}</span>
+            <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge ba b--black-50 bw1">image: {imageVersion}</span>
+            {extraTags && (
+              <span className="text-xs px-2 py-1 rounded-full mr2 pipeline-badge cursor-pointer bg-gray-100 text-gray-700 hover:bg-gray-200 transition">{extraTags}</span>
+            )}
+          </div>
+        </div>
+        {/* Timestamp */}
+        <div className="w-1/4 flex items-center justify-end">
+          <div className="">
+            <div className="f5 gray ml2 ml3-m ml0 mr3 tr">{timestamp}</div>
+            <div className="f5 gray ml2 ml3-m ml0 mr3 tr">{date}</div>
+          </div>
+        </div>
+      </div>
+      {needApproval ? (
+        <div className="flex items-center justify-between mt1 bt b--black-075 pt2">
+          <div className='flex items-center text-xs'>
+            <span className="material-symbols-outlined f6">check_circle</span>
+            <div className="ml1">approved by <a href="#" className="black underline">1 person</a>, waiting for 2 more</div>
+          </div>
+          <button className="btn btn-primary btn-small">✓ Approve</button>
+        </div>
+      ) : null}
+    </div>
+  );
+});
+
 // Sidebar component to display selected stage details
 const Sidebar = React.memo(({ selectedStage, onClose }) => {
-  const [activeTab, setActiveTab] = useState('runs');
+  const [activeTab, setActiveTab] = useState('general');
   const [width, setWidth] = useState(600);
   const isDragging = useRef(false);
   const sidebarRef = useRef(null);
@@ -463,10 +522,10 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
   
   // Sidebar tab definitions - memoized to prevent unnecessary re-renders
   const tabs = React.useMemo(() => [
-    { key: 'runs', label: 'Runs' },
-    { key: 'general', label: 'General' },
+    //{ key: 'runs', label: 'Runs' },
+    { key: 'general', label: 'Activity' },
     { key: 'history', label: 'History' },
-    { key: 'queue', label: 'Queue' },
+    //{ key: 'queue', label: 'Queue' },
     { key: 'settings', label: 'Settings' },
   ], []);
   
@@ -504,7 +563,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
       animationFrameRef.current = null;
     });
   }, []);
-  
+  console.log(selectedStage);
   // Handle mouse up to stop resizing - memoized to prevent recreation
   const handleMouseUp = React.useCallback(() => {
     isDragging.current = false;
@@ -518,240 +577,134 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
     switch (activeTab) {
       case 'runs':
         return (
-          <div className="pv3 ph4"></div>
+          <div className="pv3 ph3"></div>
         );
       case 'general':
       return (
-        <div className="pv3 ph4">
-        
-        <h2 className="f4 mb0">Run History</h2>
-        <p className="mb3">A record of recent executions for this stage.</p>
-        
-        {/* Latest Run */}
-        
-        <div className="flex-m mv3">
-        <div className="w4">
-        <div className="f5 gray pt1">May 5, 2020</div>
+        <div className="pv3 ph3">
+          <div className='flex items-center justify-between'>
+            <h2 className="f7 mb1 ttu">Recent runs</h2>
+            <button className="btn btn-link blue f5">View all</button>
+          </div>
+          
+          {/* Latest Run */}
+          <RunItem
+            status={selectedStage.data.status}
+            commitTitle="BUG-634: Add Cucumber Tests"
+            commitHash="1045a77"
+            imageVersion="v.1.2.1"
+            extraTags="+2 more"
+            timestamp="8 minutes ago"
+            date="Today"
+          />
+          
+          {/* Second Run */}
+          <RunItem
+            status={selectedStage.data.status}
+            commitTitle="BUG-634: Add Cucumber Tests"
+            commitHash="1045a77"
+            imageVersion="v.1.2.0"
+            extraTags="+2 more"
+            timestamp="8 minutes ago"
+            date="Today"
+          />
+          
+          {/* Third Run */}
+          <RunItem
+            status={selectedStage.data.status}
+            commitTitle="BUG-634: Add Cucumber Tests"
+            commitHash="1045a77"
+            imageVersion="v.1.0.0"
+            extraTags="+2 more"
+            timestamp="11 minutes ago"
+            date="Today"
+          />
+          
+          {/* Approval Section */}
+          <div className="ttu f7 mt3 mb2">Waiting for approval</div>
+          <RunItem
+            status="queued"
+            commitTitle="BUG-634: Add Cucumber Tests"
+            commitHash="1045a77"
+            imageVersion="v.1.0.0"
+            extraTags="+2 more"
+            timestamp="8 minutes ago"
+            date="Today"
+            needApproval={true}
+          />
+          
+          
+          {/* Queue Section */}
+          <div className="ttu f7 mb1 mt3 mb2">QUEUE (2)</div>
+          <RunItem
+            status="queued"
+            commitTitle="BUG-634: Add Cucumber Tests"
+            commitHash="1045a77"
+            imageVersion="v.1.0.0"
+            extraTags="+2 more"
+            timestamp="8 minutes ago"
+            date="Today"
+          />
         </div>
-        <div className="flex items-center w-full">
-        {/* Section 1: Status icon (example: done_all) */}
-        <div className="flex items-center justify-center">
-        <div className="mr3 br-100 ba b--orange bw1 tc" style={{ width: '32px', height: '32px' }}>
-        <div className="material-symbols-outlined v-mid orange b">more_horiz</div>
-        </div>
-        </div>
-        {/* Section 2: Commit info and badges */}
-        <div className="w-70">
-        <div className="flex items-center">
-        <span className="material-symbols-outlined b f4 v-mid">commit</span>
-        <a href="#" className="truncate ml2">BUG-634: Add Cucumber Tests</a>
-        </div>
-        <div className="flex">
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge">code: 1045a77</span>
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge ba b--black-50 bw1">image: v.1.0.0</span>
-        <span className="text-xs px-2 py-1 rounded-full mr2 pipeline-badge cursor-pointer bg-gray-100 text-gray-700 hover:bg-gray-200 transition">+2 more</span>
-        </div>
-        </div>
-        {/* Section 3: Action icons right-aligned */}
-        <div className="w-1/4 flex items-center justify-end">
-        <div className="f5 gray ml2 ml3-m ml0 mr3 tr">8 minutes ago</div>
-        </div>
-        </div>
-        </div>
-
-
-
-
-
-        <div className="bg-white shadow-1 mv3 ph3 pv2 br3 wf-insights-selected">
-        <div className="flex pv1">
-        <div className="w-60 mb2 mb1">
-        <div className="flex">
-        <div className="flex-auto">
-        <div className="flex">
-        <img src={icnCommit} className="mt1 mr2" />
-        <a href="workflow.html" className="word-wrap">FEAT-381: Edit email form on profile</a>
-        </div>
-        <div className="f5 overflow-auto nowrap mt1">
-        <div className="flex items-center">
-        <img src={faviconPinned} alt="Favicon" className="h1 w1 mr2" />
-        <a href="workflow.html" className="link db flex-shrink-0 f6 w3 tc white mr2 ba br2 bg-indigo">Running</a>
-        <a href="workflow.html" className="link dark-gray underline-hover">Stage Deployment ⋮ <code className="f5 gray">06:23</code></a>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        <div className="w-40">
-        <div className="flex flex-row-reverse items-center">
-        <img src={require("./images/profile-3.jpg")} width="32" height="32" className="db br-100 ba b--black-50" />
-        <div className="f5 gray ml2 ml3-m ml0 mr3 tr">8 minutes ago <br /> by shiroyasha</div>
-        </div>
-        </div>
-        </div>
-        
-        <div className="flex">
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge"> code: 1045a77</span>
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge">image: v.4.1.3</span>
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge ba b--black-50 bw1">terraform: v.2.3.1</span>
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge">type: community</span>
-        </div>
-        </div>
-        
-        
-        
-        <div className="bg-white shadow-1 mv3 ph3 pv2 br3">
-        <div className="flex pv1">
-        <div className="w-60 mb2 mb1">
-        <div className="flex">
-        <div className="flex-auto">
-        <div className="flex">
-        <img src={icnCommit} className="mt1 mr2" />
-        <a href="workflow.html" className="measure truncate">BUG-633: Routing error on workflow edit when users are</a>
-        </div>
-        <div className="f5 overflow-auto nowrap mt1">
-        <div className="flex items-center">
-        <img src={faviconPinned} alt="Favicon" className="h1 w1 mr2" />
-        <a href="workflow.html" className="link db flex-shrink-0 f6 w3 tc white mr2 ba br2 bg-green">Passed</a>
-        <a href="workflow.html" className="link dark-gray underline-hover">Stage Deployment ⋮ <code className="f5 gray">06:23</code></a>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        <div className="w-40">
-        <div className="flex flex-row-reverse items-center">
-        <img src={require("./images/profile-2.jpg")} width="32" height="32" className="db br-100 ba b--black-50" />
-        <div className="f5 gray ml2 ml3-m ml0 mr3 tr">11:03 - Mar 13<br /> by Hats Poler</div>
-        </div>
-        </div>
-        </div>
-        <div className="flex">
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge"> code: 1045a77</span>
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge ba b--black-50 bw1">image: v.4.1.3</span>
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge">terraform: v.2.1.1</span>
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge">type: enterprise</span>
-        </div>
-        </div>
-        
-        {/* Queue Section*/}
-        <div className="pv3 bt b-ighter-gray">
-        <h2 className="f4 mb0">Queue</h2>
-        <p className="mb3">Runs that are waiting to be approved or triggered.</p>
-        
-        <div className="flex-m mv3">
-        <div className="w4">
-        <div className="f5 gray pt1">May 5, 2020</div>
-        </div>
-        <div className="flex items-center w-full">
-        {/* Section 1: Status icon (example: done_all) */}
-        <div className="flex items-center justify-center">
-        <div className="mr3 br-100 ba b--orange bw1 tc" style={{ width: '32px', height: '32px' }}>
-        <div className="material-symbols-outlined v-mid orange b">more_horiz</div>
-        </div>
-        </div>
-        {/* Section 2: Commit info and badges */}
-        <div className="w-70">
-        <div className="flex items-center">
-        <span className="material-symbols-outlined b f4 v-mid">commit</span>
-        <a href="#" className="truncate ml2">BUG-634: Add Cucumber Tests</a>
-        </div>
-        <div className="flex">
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge">code: 1045a77</span>
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge ba b--black-50 bw1">image: v.4.2.0</span>
-        <span className="text-xs px-2 py-1 rounded-full mr2 pipeline-badge cursor-pointer bg-gray-100 text-gray-700 hover:bg-gray-200 transition">+2 more</span>
-        </div>
-        </div>
-        {/* Section 3: Action icons right-aligned */}
-        <div className="w-1/4 flex items-center justify-end">
-        <Tippy content="This run is waiting for the currently running one to finish.">
-        <span className="text-xs px-2 py-1 rounded-full mr2 pipeline-badge cursor-pointer bg-gray-100 text-gray-700 hover:bg-gray-200 transition">queued</span>
-        </Tippy>
-        <Tippy content="Cancel and skip this run.">
-        <span className="material-symbols-outlined mr1 pointer gray hover-black">cancel</span>
-        </Tippy>
-        </div>
-        </div>
-        </div>
-        
-        
-        <div className="flex-m mv3">
-        <div className="w4">
-        <div className="f5 gray pt1">June 23, 2023</div>
-        </div>
-        <div className="flex items-center w-full">
-        {/* Section 1: Flaky icon */}
-        <div className="flex items-center justify-center">
-        <div className="mr3 br-100 ba b--orange bw1 tc" style={{ width: '32px', height: '32px' }}>
-        <div className="material-symbols-outlined v-mid orange b">timer</div>
-        </div>
-        </div>
-        {/* Section 2: Commit info and badges */}
-        <div className="w-70">
-        <div className="flex items-center">
-        <span className="material-symbols-outlined b f4 v-mid">commit</span>
-        <a href="#" className="truncate ml2">BUG-633: Routing error on workflow edit when users are</a>
-        </div>
-        <div className="flex">
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge ba b--black-50 bw1">code: 1045a77</span>
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge">image: v.4.1.6</span>
-        <span className="text-xs px-2 py-1 rounded-full mr2 pipeline-badge cursor-pointer bg-gray-100 text-gray-700 hover:bg-gray-200 transition">+2 more</span>
-        </div>
-        </div>
-        {/* Section 3: Action icons right-aligned */}
-        <div className="w-1/4 flex items-center justify-end">
-        <Tippy content="This run will start in 23 hours and 12 minutes.">
-        <span className="text-xs px-2 py-1 rounded-full mr2 pipeline-badge cursor-pointer bg-gray-100 text-gray-700 hover:bg-gray-200 transition">23h left</span>
-        </Tippy>
-        <Tippy content="Cancel and skip this run.">
-        <span className="material-symbols-outlined mr1 pointer gray hover-black">cancel</span>
-        </Tippy>
-        </div>
-        </div>
-        </div>
-        
-        
-        <div className="flex-m mv3">
-        <div className="w4">
-        <div className="f5 gray pt1">May 5, 2020</div>
-        </div>
-        <div className="flex items-center w-full">
-        {/* Section 1: Status icon (example: done_all) */}
-        <div className="flex items-center justify-center">
-        <div className="mr3 br-100 ba b--purple bw1 tc" style={{ width: '32px', height: '32px' }}>
-        <div className="material-symbols-outlined v-mid purple b">flaky</div>
-        </div>
-        </div>
-        {/* Section 2: Commit info and badges */}
-        <div className="w-70">
-        <div className="flex items-center">
-        <span className="material-symbols-outlined b f4 v-mid">commit</span>
-        <a href="#" className="truncate ml2">FEAT-211: Partially rebuild pipeline</a>
-        </div>
-        <div className="flex">
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge ba b--black-50 bw1">code: 1a2b3c4</span>
-        <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full mr2 pipeline-badge">image: v.4.1.6</span>
-        <span className="text-xs px-2 py-1 rounded-full mr2 pipeline-badge cursor-pointer bg-gray-100 text-gray-700 hover:bg-gray-200 transition">+2 more</span>
-        </div>
-        </div>
-        {/* Section 3: Action icons right-aligned */}
-        <div className="w-1/4 flex items-center justify-end">
-        <Tippy content="Approve and start this run.">
-        <span className="material-symbols-outlined mr1 pointer gray hover-black">check_circle</span>
-        </Tippy>
-        <Tippy content="Cancel and skip this run.">
-        <span className="material-symbols-outlined mr1 pointer gray hover-black">cancel</span>
-        </Tippy>
-        </div>
-        </div>
-        </div>
-        </div>
-        
-        {/* Inputs Section */}
-        <div className="pv3 bt b-ighter-gray">
-        <h2 className="f4 mb0">Inputs</h2>
-        <p className="mb3">Runs that are waiting to be approved or triggered.</p>
-        </div>
+      );
+      
+      case 'history':
+      return (
+        <div className='pv3 ph2'>
+          <RunItem
+            status="Passed"
+            commitTitle="BUG-634: Add Cucumber Tests"
+            commitHash="1045a77"
+            imageVersion="v.1.2.1"
+            extraTags="+2 more"
+            timestamp="8 minutes ago"
+            date="Today"
+          />
+          <RunItem
+            status={selectedStage.data.status}
+            commitTitle="BUG-634: Add Cucumber Tests"
+            commitHash="1045a77"
+            imageVersion="v.1.2.1"
+            extraTags="+2 more"
+            timestamp="8 minutes ago"
+            date="Today"
+          />
+          <RunItem
+            status={selectedStage.data.status}
+            commitTitle="BUG-634: Add Cucumber Tests"
+            commitHash="1045a77"
+            imageVersion="v.1.2.1"
+            extraTags="+2 more"
+            timestamp="8 minutes ago"
+            date="Today"
+          />
+          <RunItem
+            status="Passed"
+            commitTitle="BUG-634: Add Cucumber Tests"
+            commitHash="1045a77"
+            imageVersion="v.1.2.1"
+            extraTags="+2 more"
+            timestamp="8 minutes ago"
+            date="Today"
+          />
+          <RunItem
+            status="Passed"
+            commitTitle="BUG-634: Add Cucumber Tests"
+            commitHash="1045a77"
+            imageVersion="v.1.2.1"
+            extraTags="+2 more"
+            timestamp="8 minutes ago"
+            date="Today"
+          />
+          <RunItem
+            status={selectedStage.data.status}
+            commitTitle="BUG-634: Add Cucumber Tests"
+            commitHash="1045a77"
+            imageVersion="v.1.2.1"
+            extraTags="+2 more"
+            timestamp="8 minutes ago"
+            date="Today"
+          />
         </div>
       );
       
@@ -1030,7 +983,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
     }}
     >
     {/* Sidebar Header with Stage Name */}
-    <div className="sidebar-header bg-white">
+    <div className="sidebar-header bg-near-white bb b--black-10 ">
     <div className="sidebar-header-title flex items-center">
     {selectedStage.type === 'deploymentCard' ? (
         <span class="material-symbols-outlined mr1">rocket_launch</span>
@@ -1042,11 +995,11 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
     )}
     <span className="f4 b">{selectedStage.data.label}</span>
     </div>
-    <button className="sidebar-close-button" onClick={onClose} title="Close sidebar">×</button>
+    <button className="pa0 bg-transparent" onClick={onClose} title="Close sidebar"><i className="material-symbols-outlined">close</i></button>
     </div>
     
     {/* Sidebar Tabs */}
-    <div className="sidebar-tabs">
+    <div className="sidebar-tabs bg-near-white ph2">
     {tabs.map(tab => (
       <button
       key={tab.key}
@@ -1057,7 +1010,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
       </button>
     ))}
     </div>
-    <div className="sidebar-content">
+    <div className="sidebar-content bg-near-white h-full">
     {renderTabContent()}
     </div>
     

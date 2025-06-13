@@ -199,7 +199,6 @@
 .sidebar-tabs {
   display: flex;
   border-bottom: 1px solid #eee;
-  background: #fafbfc;
   min-height: 44px;
   align-items: center;
   z-index: 20;
@@ -225,7 +224,7 @@
 /* Ensure sidebar-content is not overlapping tabs */
 .sidebar-content {
   padding-top: 44px;
-  background: #fff;
+  
   min-height: 200px;
   z-index: 10;
 }
