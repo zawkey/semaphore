@@ -533,7 +533,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
           {/* Latest Run */}
           <RunItem
             status={selectedStage.data.status}
-            commitTitle="BUG-634: Add Cucumber Tests"
+            commitTitle="#2"
             commitHash="1045a77"
             imageVersion="v.1.2.1"
             extraTags="+2 more"
@@ -545,7 +545,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
           
             <RunItem
               status="Passed"
-              commitTitle="BUG-634: Add Cucumber Tests2"
+              commitTitle="Run #1"
               commitHash="1045a77"
               imageVersion="v.1.2.0"
               extraTags="+2 more"
@@ -921,7 +921,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
     }}
     >
     {/* Sidebar Header with Stage Name */}
-    <div className="sidebar-header bg-near-white bb b--black-10 ">
+    <div className="sidebar-header ">
     <div className="sidebar-header-title flex items-center">
     {selectedStage.type === 'deploymentCard' ? (
         <span class="material-symbols-outlined mr1">rocket_launch</span>
@@ -935,9 +935,29 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
     </div>
     <button className="pa0 bg-transparent" onClick={onClose} title="Close sidebar"><i className="material-symbols-outlined">close</i></button>
     </div>
-    
+    <div className='f5 flex items-center px-4 mb2'><span className="mr1 gray">Executing:</span><img src={semaphore} width={20} className="mx-1"/><a href="#" className="link dark-indigo underline-hover">Semaphore project/Pipeline name</a></div>
+   
+    <div className="flex items-start px-4 hidden">
+      <i className="material-symbols-outlined mr1 text-sm">play_circle</i>
+      <div className="text-sm">
+        <div className="mb1 ttu">Executor</div>
+        <div className="flex items-center code text-xs">
+          <div className="gray"><div><img src={semaphore} width={20} className="mx-1"/><span className='b'>Semaphore project/Pipeline name</span></div>
+            <div className="b bg-black-05">Image</div>
+            <div>Terraform</div><div>Something</div>
+          </div>
+          <div className="">
+            <div className="pl2">1045a77</div>
+            <div className="b bg-black-05 pl2">v.1.2.1</div>
+            <div className="pl2">32.32</div>
+            <div className="pl2">adsfasdf</div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
     {/* Sidebar Tabs */}
-    <div className="sidebar-tabs bg-near-white ph2">
+    <div className="sidebar-tabs ph2">
     {tabs.map(tab => (
       <button
       key={tab.key}

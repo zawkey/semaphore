@@ -34,8 +34,15 @@ const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, ext
                   return null
               }
             })()}
-            <img src={semaphore} width={20} className="mx-1"/>
-            <a href="#" className="truncate ml2 b">{commitTitle}</a>
+            <img src={semaphore} width={20} className="mx-1 hidden"/>
+            <a href="#" className="truncate ml2 b hidden">{commitTitle}</a>
+            <div className={`flex items-center pt1 ${isExpanded ? "hidden" : "flex"}`}>
+              <span className="bg-black-05 text-gray-600 text-xs px-1 py-1 br2 mr2 pipeline-badge code">code: {commitHash}</span>
+              <span className="bg-black-10 black text-xs px-1 py-1 br2 mr2 pipeline-badge ba b--black-20 code">image: {imageVersion}</span>
+              {extraTags && (
+                <span className="text-xs px-2 py-1 mr2">{extraTags}</span>
+              )}
+            </div>
           </div>
           <div className="flex items-center">
           <div className={`text-xs gray ml3-m ml0 mr3 tr ${isExpanded ? "hidden" : "inline-block"}`}>{timestamp}</div>
@@ -47,13 +54,7 @@ const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, ext
         
         <div className="flex items-start">
           
-          <div className={`flex items-center pt1 ${isExpanded ? "hidden" : "flex"}`}>
-            <span className="bg-black-05 text-gray-600 text-xs px-1 py-1 br2 mr2 pipeline-badge code">code: {commitHash}</span>
-            <span className="bg-black-10 black text-xs px-1 py-1 br2 mr2 pipeline-badge ba b--black-20 code">image: {imageVersion}</span>
-            {extraTags && (
-              <span className="text-xs px-2 py-1 mr2">{extraTags}</span>
-            )}
-          </div>
+         
           {isExpanded && (
             <div className="pt2">
                 <div className="gray text-sm hidden">
