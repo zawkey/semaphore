@@ -1060,3 +1060,6 @@ main {
 .output-link:hover {
   text-decoration: underline;
 }
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+}
