@@ -533,7 +533,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
           {/* Latest Run */}
           <RunItem
             status={selectedStage.data.status}
-            commitTitle="#2"
+            commitTitle="Run #2"
             commitHash="1045a77"
             imageVersion="v.1.2.1"
             extraTags="+2 more"
@@ -935,7 +935,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
     </div>
     <button className="pa0 bg-transparent" onClick={onClose} title="Close sidebar"><i className="material-symbols-outlined">close</i></button>
     </div>
-    <div className='f5 flex items-center px-4 mb2'><span className="mr1 gray">Executing:</span><img src={semaphore} width={20} className="mx-1"/><a href="#" className="link dark-indigo underline-hover">Semaphore project/Pipeline name</a></div>
+    <div className='f4 flex items-center px-4 mb2'><img src={semaphore} width={20} className="mx-1"/><span className="mr1 b">Pipeline</span><a href="#" className="link dark-indigo underline">Semaphore project/Pipeline name</a></div>
    
     <div className="flex items-start px-4 hidden">
       <i className="material-symbols-outlined mr1 text-sm">play_circle</i>
