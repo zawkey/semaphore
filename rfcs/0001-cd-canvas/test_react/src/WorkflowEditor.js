@@ -4,6 +4,7 @@ import rocket from './images/logos/rocket.svg';
 import semaphore from './images/semaphore-logo-sign-black.svg';
 import kubernetes from './images/logos/kubernetes.svg';
 import RunItem from './components/RunItem';
+import MessageItem from './components/MessageItem';
 import github from './images/icn-github.svg';
 import s3 from './images/logos/aws-cloudformation.svg';
 import ReactFlow, {
@@ -538,53 +539,47 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
             extraTags="+2 more"
             timestamp="8 minutes ago"
             date="Today"
+            isHightlighted={true}
           />
+          {selectedStage.data.status != 'Passed' && (
           
-          {/* Second Run */}
-          <RunItem
-            status={selectedStage.data.status}
-            commitTitle="BUG-634: Add Cucumber Tests"
-            commitHash="1045a77"
-            imageVersion="v.1.2.0"
-            extraTags="+2 more"
-            timestamp="8 minutes ago"
-            date="Today"
-          />
+            <RunItem
+              status="Passed"
+              commitTitle="BUG-634: Add Cucumber Tests2"
+              commitHash="1045a77"
+              imageVersion="v.1.2.0"
+              extraTags="+2 more"
+              timestamp="11 minutes ago"
+              date="Today"
+            />
+          )}
+         
           
-          {/* Third Run */}
-          <RunItem
-            status={selectedStage.data.status}
-            commitTitle="BUG-634: Add Cucumber Tests"
-            commitHash="1045a77"
-            imageVersion="v.1.0.0"
-            extraTags="+2 more"
-            timestamp="11 minutes ago"
-            date="Today"
-          />
           
-          {/* Approval Section */}
-          <div className="ttu f7 mt3 mb2">Waiting for approval</div>
-          <RunItem
-            status="queued"
-            commitTitle="BUG-634: Add Cucumber Tests"
-            commitHash="1045a77"
-            imageVersion="v.1.0.0"
-            extraTags="+2 more"
-            timestamp="8 minutes ago"
-            date="Today"
-            needApproval={true}
-          />
           
           
           {/* Queue Section */}
-          <div className="ttu f7 mb1 mt3 mb2">QUEUE (2)</div>
-          <RunItem
-            status="queued"
-            commitTitle="BUG-634: Add Cucumber Tests"
+          <div className="ttu f7 mb1 mt3 mb2">QUEUE (3)</div>
+          <MessageItem
             commitHash="1045a77"
-            imageVersion="v.1.0.0"
-            extraTags="+2 more"
+            imageVersion="v.1.2.3"
+            extraTags="+3 more"
             timestamp="8 minutes ago"
+            date="Today"
+          />
+          <MessageItem
+            commitHash="1045a77"
+            imageVersion="v.1.2.4"
+            extraTags="+3 more"
+            timestamp="11 minutes ago"
+            date="Today"
+          />
+          <MessageItem
+            commitHash="1045a77"
+            imageVersion="v.1.2.5"
+            extraTags="+3 more"
+            timestamp="14 minutes ago"
+            approved={true}
             date="Today"
           />
         </div>
