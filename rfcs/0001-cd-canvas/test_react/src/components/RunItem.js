@@ -41,7 +41,8 @@ const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, ext
           </div>
           <div className="flex items-center">
           <div className={`text-xs gray ml3-m ml0 mr3 tr ${isExpanded ? "hidden" : "inline-block"}`}>{timestamp}</div>
-          {status.toLowerCase() === 'queued' && <button className="btn btn-secondary btn-small"><i className="material-symbols-outlined text-sm">close</i></button>}
+          <button className="btn gray text-lg px-1 py-0"><i className="material-symbols-outlined text-lg">more_vert</i></button>
+          {status.toLowerCase() === 'queued' && <button className="btn btn-secondary btn-small text-sm"><i className="material-symbols-outlined text-sm">close</i></button>}
           </div>
 
         </div>
@@ -69,11 +70,11 @@ const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, ext
                       <div className="flex items-center">
                         <div className="gray">
                           <div><i className="material-symbols-outlined text-sm">nest_clock_farsight_analog</i></div>
-                          {status.toLowerCase() === 'passed' && <div><i className="material-symbols-outlined text-sm">hourglass_bottom</i></div>}
+                          {status.toLowerCase() === 'passed' || status.toLowerCase() === 'failed' && <div><i className="material-symbols-outlined text-sm">hourglass_bottom</i></div>}
                         </div>
                         <div className="ml1">
                           <div>Jan 16, 2022 10:23:45</div>
-                          {status.toLowerCase() === 'passed' && <div>25 seconds</div>}
+                          {status.toLowerCase() === 'passed' || status.toLowerCase() === 'failed' && <div>25 seconds</div>}
                         </div>
                       </div>
                     </div>

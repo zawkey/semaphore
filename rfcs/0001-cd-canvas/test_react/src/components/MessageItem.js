@@ -117,7 +117,7 @@ const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp
                     <button className={`btn btn-secondary btn-small ${approved ? 'bg-lightest-green b--washed-green dark-green ba pointer-events-none' : ''}`}><i className="material-symbols-outlined text-sm">check</i></button>
                     <button className="btn btn-secondary btn-small"><i className="material-symbols-outlined text-sm">close</i></button>
                 </div>
-                <button className="btn btn-link btn-small"><i className="material-symbols-outlined text-sm">more_horiz</i></button>
+                <button className="btn btn-link btn-small"><i className="material-symbols-outlined text-lg px-0 py-0">more_vert</i></button>
             </div>
           </div>
         </div>
