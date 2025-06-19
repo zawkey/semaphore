@@ -106,10 +106,10 @@ const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp
         </div>
         </div>
         <div className="flex items-center justify-between mt1 bt b--black-075 py-2">
-            <div className='flex items-center text-xs'><span className="material-symbols-outlined fill f6 mr1">schedule</span> Run next Monday</div>
+            <div className='flex items-center text-xs'><span className="material-symbols-outlined gray f6 mr1">schedule</span> Run next Monday</div>
             <div className='flex items-center text-xs'>
               
-              <span className="material-symbols-outlined f6">check_circle</span>
+              <span className="material-symbols-outlined f6 gray">check_circle</span>
               <div className="ml1">approved by <a href="#" className="black underline">1 person</a>, waiting for 2 more</div>
             </div>
             <div className="flex items-center">
