@@ -182,20 +182,21 @@ main {
 }
 
 .tab-button {
-  padding: 10px 15px;
+  padding: 8px 16px;
   background: none;
   border: none;
   border-bottom: 3px solid transparent;
   cursor: pointer;
   font-size: 14px;
+  line-height: 1;
   font-weight: 500;
   color: #666;
   white-space: nowrap;
 }
 
 .tab-button.active {
-  border-bottom-color: #0366d6;
-  color: #0366d6;
+  border-bottom-color: var(--dark-indigo);
+  color: var(--dark-indigo);
 }
 
 .tab-button:hover:not(.active) {

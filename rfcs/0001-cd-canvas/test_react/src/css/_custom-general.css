@@ -199,7 +199,6 @@
 .sidebar-tabs {
   display: flex;
   border-bottom: 1px solid #eee;
-  min-height: 44px;
   align-items: center;
   z-index: 20;
 }

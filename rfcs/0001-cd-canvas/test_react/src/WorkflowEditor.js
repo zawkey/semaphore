@@ -584,6 +584,10 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
             timestamp="14 minutes ago"
             approved={true}
             date="Today"
+            onRemove={() => {
+              const newItems = selectedStage.data.queueItems.filter(item => item.commitHash !== "1045a77");
+              selectedStage.data.queueItems = newItems;
+            }}
           />
         </div>
       );
@@ -593,7 +597,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
         <div className='pv3 ph2'>
           <RunItem
             status="Passed"
-            commitTitle="BUG-634: Add Cucumber Tests"
+            commitTitle="Run #4"
             commitHash="1045a77"
             imageVersion="v.1.2.1"
             extraTags="+1 more"
@@ -601,8 +605,8 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
             date="Today"
           />
           <RunItem
-            status={selectedStage.data.status}
-            commitTitle="BUG-634: Add Cucumber Tests"
+            status="Passed"
+            commitTitle="Run #5"
             commitHash="1045a77"
             imageVersion="v.1.2.1"
             extraTags="+2 more"
@@ -610,8 +614,8 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
             date="Today"
           />
           <RunItem
-            status={selectedStage.data.status}
-            commitTitle="BUG-634: Add Cucumber Tests"
+            status="Failed"
+            commitTitle="Run #6"
             commitHash="1045a77"
             imageVersion="v.1.2.1"
             extraTags="+2 more"
@@ -620,7 +624,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
           />
           <RunItem
             status="Passed"
-            commitTitle="BUG-634: Add Cucumber Tests"
+            commitTitle="Run #7"
             commitHash="1045a77"
             imageVersion="v.1.2.1"
             extraTags="+2 more"
@@ -629,7 +633,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
           />
           <RunItem
             status="Passed"
-            commitTitle="BUG-634: Add Cucumber Tests"
+            commitTitle="Run #8"
             commitHash="1045a77"
             imageVersion="v.1.2.1"
             extraTags="+2 more"
@@ -637,8 +641,8 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
             date="Today"
           />
           <RunItem
-            status={selectedStage.data.status}
-            commitTitle="BUG-634: Add Cucumber Tests"
+            status= "Failed"
+            commitTitle="Run #9"
             commitHash="1045a77"
             imageVersion="v.1.2.1"
             extraTags="+2 more"
@@ -938,16 +942,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
     </div>
     <button className="pa0 bg-transparent" onClick={onClose} title="Close sidebar"><i className="material-symbols-outlined">close</i></button>
     </div>
-    <div className='f4 px-4 mb2'>
-      
-      <div className="flex items-center hidden">
-      <span className="bg-black-05 text-gray-600 text-xs px-1 py-1 br2 mr2 pipeline-badge code">code:adf</span>
-              <span className="bg-black-10 black text-xs px-1 py-1 br2 mr2 pipeline-badge ba b--black-20 code">image:adf</span>
-             
-                <span className="text-xs px-2 py-1 mr2">adf</span>
-             </div>
-      
-    </div>
+
    
     <div className="flex items-start px-4 hidden">
       <i className="material-symbols-outlined mr1 text-sm">play_circle</i>

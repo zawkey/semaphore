@@ -1,15 +1,41 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import semaphore from '../images/semaphore-logo-sign-black.svg';
 
-const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp, approved = false }) => {
+const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp, approved = false, onRemove }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
+  const handleDropdownClick = (e) => {
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleRemove = () => {
+    if (onRemove) {
+      onRemove();
+    }
+    setIsDropdownOpen(false);
+  };
+
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className={`run-item flex items-start mv1 pa2 bt bg-white`}>
+    <div className={`run-item flex items-start mv1 pa2 ba br2 bg-white`}>
       <button 
           className="btn btn-outline btn-small py-0 px-0 leading-none mt1"
           onClick={toggleExpand}
@@ -124,7 +150,26 @@ const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp
                
                     <button className={`btn btn-secondary btn-small ${approved ? 'bg-lightest-green b--washed-green dark-green ba pointer-events-none' : ''}`}><i className="material-symbols-outlined text-sm">check</i></button>
                
-                    <button className="more-options btn btn-link btn-small"><i className="material-symbols-outlined text-lg px-0 py-0">more_vert</i></button>
+                    <div className="relative" ref={dropdownRef}>
+              <button 
+                className="more-options btn btn-link btn-small"
+                onClick={handleDropdownClick}
+              >
+                <i className="material-symbols-outlined text-lg px-0 py-0">more_vert</i>
+              </button>
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt1 bg-white shadow-lg rounded-lg w-32 z-10">
+                  <div className="py-1">
+                    <button 
+                      onClick={handleRemove}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
                 
             </div>
           </div>
