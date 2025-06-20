@@ -919,7 +919,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
             <div className="bg-white h-full">
               {viewMode === 'form' ? (
                 <div className='text-sm pa2'>
-                  <div className='pt2 mb2 ttu flex items-center'><i className="material-symbols-outlined mid-gray mr1 text-sm">list_alt</i>Stage details</div>
+                  <div className='pt2 mb2 ttu flex items-center b'><i className="material-symbols-outlined mid-gray mr1 f4 hidden">notes</i>Stage details</div>
                   <div className="space-y-2">
                     <div className="flex items-start w-full">
                       <div className='gray w-1/4'>Name</div>
@@ -935,7 +935,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
                     </div>
                    
                   </div>
-                  <div className='pt2 mb2 ttu flex items-center'><i className="material-symbols-outlined mid-gray mr1 text-sm">trail_length_short</i>Executor</div>
+                  <div className='pt2 mb2 ttu flex items-center b'><i className="material-symbols-outlined mid-gray mr1 f4 fill hidden">play_arrow</i>Executor</div>
                   <div className="space-y-2">
                     <div className="flex items-start w-full">
                       <div className='gray w-1/4'>Type</div>
@@ -963,7 +963,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
                     </div>
                    
                   </div>
-                  <div className='mt3 mb2 ttu flex items-center'><i className="material-symbols-outlined mid-gray mr1 text-sm">local_police</i>Gates</div>
+                  <div className='mt3 mb2 ttu flex items-center b'><i className="material-symbols-outlined mid-gray mr1 f4 hidden">local_police</i>Gates</div>
                   <div className="space-y-2">
                     <div className="flex items-start w-full">
                       <div className='gray w-1/4'>Manual approval</div>
@@ -975,7 +975,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
                    
                   </div>
                   
-                  <div className='mt3 mb2 ttu flex items-center'><i className="material-symbols-outlined mid-gray mr1 text-sm">link</i>Connections</div>
+                  <div className='mt3 mb2 ttu flex items-center b'><i className="material-symbols-outlined mid-gray mr1 f4 hidden">link</i>Connections</div>
                   <div className="space-y-2">
                     <div className="flex items-start w-full">
                       <div className='gray w-1/4'>#1</div>
@@ -993,7 +993,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
                       <div className="flex items-center justify-between w-full">
                         <span className="bg-black-05 h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
                           <i className="material-symbols-outlined mr1 text-xs">bolt</i>
-                          Github integration
+                          Terraform
                         </span>
                         <span className='text-xs gray'>Event source</span>
                       </div>
@@ -1001,43 +1001,71 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
                     </div>
                    
                   </div>
-                  <div className='mt3 mb2 ttu flex items-center'><i className="material-symbols-outlined mid-gray mr1 text-sm">input</i>Inputs</div>
+                  <div className='mt3 mb2 ttu flex items-center b'><i className="material-symbols-outlined mid-gray mr1 f4 hidden">input</i>Inputs</div>
                   <div className="space-y-2">
                     <div className="flex items-start w-full">
-                      <div className='gray w-1/4'>Image</div>
-                      <div className="flex items-center w-full">
-                        <span className="bg-black-05 h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
-                          <i className="material-symbols-outlined mr1 text-xs">rocket_launch</i>
-                          Deploy to US East
-                        </span>.
-                        <span className="bg-washed-purple h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
-                          outputs
-                        </span>.
-                        <span className="bg-washed-yellow h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
-                          IMAGE
-                        </span>
+                      <div className='gray w-1/4'>IMAGE</div>
+                      <div className='w-full'>
+                        <div className="flex items-center w-full">
+                          <span className="bg-black-05 h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                            <i className="material-symbols-outlined mr1 text-xs">rocket_launch</i>
+                            Deploy to US East
+                          </span>.
+                          <span className="bg-washed-purple h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                            outputs
+                          </span>.
+                          <span className="bg-washed-yellow h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                            IMAGE
+                          </span>
+                        </div>
+                        <div className="flex items-center w-full mt1">
+                          <span className="bg-black-05 h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                            <i className="material-symbols-outlined mr1 text-xs">rocket_launch</i>
+                            Terraform
+                          </span>.
+                          <span className="bg-washed-purple h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                            lastExecution
+                          </span>.
+                          <span className="bg-washed-yellow h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                          [RESULT_PASSED]
+                          </span>
+                        </div>
                       </div>
                      
                     </div>
                     <div className="flex items-start w-full">
-                      <div className='gray w-1/4'>Code</div>
-                      <div className="flex items-center w-full">
-                        <span className="bg-black-05 h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
-                          <i className="material-symbols-outlined mr1 text-xs">bolt</i>
-                          Github integration
-                        </span>.
-                        <span className="bg-washed-purple h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
-                          repoName
-                        </span>.
-                        <span className="bg-washed-yellow h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
-                          REF
-                        </span>
+                      <div className='gray w-1/4'>TERRAFORM</div>
+                      <div className='w-full'>
+                        <div className="flex items-center w-full">
+                          <span className="bg-black-05 h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                            <i className="material-symbols-outlined mr1 text-xs">rocket_launch</i>
+                            Deploy to US East
+                          </span>.
+                          <span className="bg-washed-purple h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                            lastExecution
+                          </span>.
+                          <span className="bg-washed-yellow h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                          [RESULT_PASSED]
+                          </span>
+                        </div>
+                        <div className="flex items-center w-full mt1">
+                          <span className="bg-black-05 h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                            <i className="material-symbols-outlined mr1 text-xs">rocket_launch</i>
+                            Terraform
+                          </span>.
+                          <span className="bg-washed-purple h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                          terraform
+                          </span>.
+                          <span className="bg-washed-yellow h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                          ref
+                          </span>
+                        </div>
                       </div>
                      
                     </div>
                    
                   </div>
-                  <div className='mt3 mb2 ttu flex items-center'><i className="material-symbols-outlined mid-gray mr1 text-sm">output</i>Outputs</div>
+                  <div className='mt3 mb2 ttu flex items-center b'><i className="material-symbols-outlined mid-gray mr1 f4 hidden">output</i>Outputs</div>
                   <div className="space-y-2">
                     <div className="flex items-start w-full">
                       <div className='gray w-1/4'>Image</div>
