@@ -70,11 +70,11 @@ const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, ext
                       <div className="flex items-center">
                         <div className="gray">
                           <div><i className="material-symbols-outlined text-sm">nest_clock_farsight_analog</i></div>
-                          {status.toLowerCase() === 'passed' || status.toLowerCase() === 'failed' && <div><i className="material-symbols-outlined text-sm">hourglass_bottom</i></div>}
+                          {(status.toLowerCase() === 'passed' || status.toLowerCase() === 'failed') && <div><i className="material-symbols-outlined text-sm">hourglass_bottom</i></div>}
                         </div>
                         <div className="ml1">
                           <div>Jan 16, 2022 10:23:45</div>
-                          {status.toLowerCase() === 'passed' || status.toLowerCase() === 'failed' && <div>25 seconds</div>}
+                          {(status.toLowerCase() === 'passed' || status.toLowerCase() === 'failed') && <div>25 seconds</div>}
                         </div>
                       </div>
                     </div>

@@ -105,7 +105,7 @@ const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp
           )}
         </div>
         </div>
-        <div className="flex items-center justify-between mt1 bt b--black-075 py-2">
+        <div className="flex items-center justify-between mt1 bt b--black-075 pt2">
             <div className='flex items-center text-xs'><span className="material-symbols-outlined gray f6 mr1">schedule</span> Run next Monday</div>
             <div className='flex items-center text-xs'>
               

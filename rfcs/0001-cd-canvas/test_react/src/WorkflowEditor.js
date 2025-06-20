@@ -935,7 +935,20 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
     </div>
     <button className="pa0 bg-transparent" onClick={onClose} title="Close sidebar"><i className="material-symbols-outlined">close</i></button>
     </div>
-    <div className='f4 flex items-center px-4 mb2'><img src={semaphore} width={20} className="mx-1"/><span className="mr1 b">Pipeline</span><a href="#" className="link dark-indigo underline">Semaphore project/Pipeline name</a></div>
+    <div className='f4 px-4 mb2'>
+      <div className="bg-white br2 flex items-center">
+      <img src={semaphore} width={20} className="mx-1"/>
+      <span className="mr1 b">Pipeline</span>
+      <a href="#" className="link dark-indigo underline">Semaphore project/Pipeline name</a>
+      </div>
+      <div className="flex items-center hidden">
+      <span className="bg-black-05 text-gray-600 text-xs px-1 py-1 br2 mr2 pipeline-badge code">code:adf</span>
+              <span className="bg-black-10 black text-xs px-1 py-1 br2 mr2 pipeline-badge ba b--black-20 code">image:adf</span>
+             
+                <span className="text-xs px-2 py-1 mr2">adf</span>
+             </div>
+      
+    </div>
    
     <div className="flex items-start px-4 hidden">
       <i className="material-symbols-outlined mr1 text-sm">play_circle</i>
