@@ -42,28 +42,28 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   <div className="pl1 pr2">
                     <SidebarNode
                       key={"deployment-gates"}
-                      logo={require("../images/logos/rocket.svg").default}
+                      icon="rocket_launch"
                       title={"Pre-deployment"}
                       onAddNode={onAddNode}
                       onDragStart={onDragStart}
                     />
                     <SidebarNode
                       key={"deployment-gates"}
-                      logo={require("../images/logos/rocket.svg").default}
+                      icon="rocket_launch"
                       title={"Staging"}
                       onAddNode={onAddNode}
                       onDragStart={onDragStart}
                     />
                     <SidebarNode
                       key={"deployment-gates"}
-                      logo={require("../images/logos/rocket.svg").default}
+                      icon="rocket_launch"
                       title={"Production"}
                       onAddNode={onAddNode}
                       onDragStart={onDragStart}
                     />
                     <SidebarNode
                       key={"deployment-gates"}
-                      logo={require("../images/logos/rocket.svg").default}
+                      icon="rocket_launch"
                       title={"Something else"}
                       onAddNode={onAddNode}
                       onDragStart={onDragStart}
@@ -76,28 +76,28 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                   <div className="pl1 pr2">
                     <SidebarNode
                       key={"deployment-gates"}
-                      logo={require("../images/logos/shield.svg").default}
+                      icon="local_police"
                       title={"Manual approval"}
                       onAddNode={onAddNode}
                       onDragStart={onDragStart}
                     />
                     <SidebarNode
                       key={"deployment-gates"}
-                      logo={require("../images/logos/shield.svg").default}
+                      icon="local_police"
                       title={"Schedule restriction"}
                       onAddNode={onAddNode}
                       onDragStart={onDragStart}
                     />
                     <SidebarNode
                       key={"deployment-gates"}
-                      logo={require("../images/logos/shield.svg").default}
+                      icon="local_police"
                       title={"Deployment window"}
                       onAddNode={onAddNode}
                       onDragStart={onDragStart}
                     />
                     <SidebarNode
                       key={"deployment-gates"}
-                      logo={require("../images/logos/shield.svg").default}
+                      icon="local_police"
                       title={"Incident pauses"}
                       onAddNode={onAddNode}
                       onDragStart={onDragStart}
@@ -132,6 +132,7 @@ const ComponentSidebar = ({ onAddNode, onDragStart }) => {
                             logo={tool.logo}
                             title={item}
                             icon="bolt"
+                            icon_filled={true}
                             onAddNode={onAddNode}
                             onDragStart={onDragStart}
                           />
