@@ -25,8 +25,8 @@ const SidebarNode = ({
         </div>
          
     </div>
-    <div className="invisible flex items-center icons">
-        <button className="add-node material-symbols-outlined f3 gray mr2 hover:bg-gray-100 br2" onClick={() => onAddNode('githubIntegration', { x: 0, y: 0 })}>add</button>
+    <div className="flex items-center">
+        <button className="add-node hidden material-symbols-outlined f3 gray mr2 hover:bg-gray-100 br2" onClick={() => onAddNode('githubIntegration', { x: 0, y: 0 })}>add</button>
         <button className="drag-node cursor-grab material-symbols-outlined f3 gray">drag_indicator</button>
     </div>
 </div>

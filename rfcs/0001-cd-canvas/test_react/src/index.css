@@ -51,8 +51,9 @@ code {
 .sidebar-hidden #sidebar-toggle i{
   transform: scaleX(-1);
 }
-.node:hover .icons{
-  visibility: visible;
+.node:hover .add-node{
+  visibility: visible!important;
+  display: block!important;
 }
 
 .page-wrapper{

@@ -28,9 +28,10 @@ import 'tippy.js/dist/tippy.css';
 import CustomBarHandle from './CustomBarHandle';
 import ComponentSidebar from './components/componentSidebar';
 import Navigation from './components/navigation';
+
 const DeploymentCardStage = React.memo(({ data, selected, onIconAction, id, onDelete }) => {
   const [showOverlay, setShowOverlay] = React.useState(false);
-
+  
   const handleAction = React.useCallback((action) => {
     if (action === 'code') setShowOverlay(true);
     if (onIconAction) onIconAction(action);
@@ -462,7 +463,11 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
   const isDragging = useRef(false);
   const sidebarRef = useRef(null);
   const animationFrameRef = useRef(null);
-  
+  const [isMsgDragStart, setIsMsgDragStart] = useState(false);
+  const handleMsgDragStart = (e) => {
+    e.stopPropagation();
+    setIsMsgDragStart(!isMsgDragStart);
+  };
   // Sidebar tab definitions - memoized to prevent unnecessary re-renders
   const tabs = React.useMemo(() => [
     //{ key: 'runs', label: 'Runs' },
@@ -561,7 +566,11 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
           {/* Queue Section */}
           <div className='flex items-center justify-between'>
             <div className="ttu f7 mb1 mt3">QUEUE (3)</div>
-            <button className="btn btn-link dark-indigo btn-small px-0">Manage queue</button>
+            <button className={`btn btn-link dark-indigo btn-small px-0 ${isMsgDragStart ? "hidden" : "flex"}`} onClick={handleMsgDragStart}>Manage queue</button>
+            <div className={`text-xs gray ml3-m ml0 tr ${isMsgDragStart ? "flex" : "hidden"}`}>
+              <button className="btn btn-link dark-indigo btn-small px-0 mr3">Save</button>
+              <button className="btn btn-link dark-indigo btn-small px-0" onClick={handleMsgDragStart}>Cancel</button>
+            </div>
           </div>
           <MessageItem
             commitHash="1045a77"
@@ -569,6 +578,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
             extraTags="+3 more"
             timestamp="8 minutes ago"
             date="Today"
+            isDragStart={isMsgDragStart}
           />
           <MessageItem
             commitHash="1045a77"
@@ -576,6 +586,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
             extraTags="+3 more"
             timestamp="11 minutes ago"
             date="Today"
+            isDragStart={isMsgDragStart}
           />
           <MessageItem
             commitHash="1045a77"
@@ -584,6 +595,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
             timestamp="14 minutes ago"
             approved={true}
             date="Today"
+            isDragStart={isMsgDragStart}
             onRemove={() => {
               const newItems = selectedStage.data.queueItems.filter(item => item.commitHash !== "1045a77");
               selectedStage.data.queueItems = newItems;
@@ -885,6 +897,21 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
       case 'settings':
       return (
         <div className="pv3 ph4">
+          <div className="flex items-start w-full">
+            
+          </div>
+                <div className='mb1 ttu'>Stage details</div>
+                <div className="flex items-start w-full">
+                  <div className='gray w-1/4'>
+                    <div className=''>Name</div>
+                    <div className=''>ID</div>
+                  </div>
+                  <div className=''>
+                    <div className='pl2'>Deploy to Asia cluster</div>
+                    <div className='pl2'>123</div>
+                  </div>
+                </div>
+          
         <h3 className="textg font-semibold mb-3">Settings</h3>
         <div className="settings-item">
         <span className="settingsabel">Stage Name</span>

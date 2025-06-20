@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
 import semaphore from '../images/semaphore-logo-sign-black.svg';
 
-const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp, approved = false, onRemove }) => {
+const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp, approved = false, onRemove, isDragStart=false}) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -14,7 +15,7 @@ const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp
     e.stopPropagation();
     setIsDropdownOpen(!isDropdownOpen);
   };
-
+ 
   const handleRemove = () => {
     if (onRemove) {
       onRemove();
@@ -35,9 +36,11 @@ const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp
   }, []);
 
   return (
-    <div className={`run-item flex items-start mv1 pa2 ba br2 bg-white`}>
+    <div className='flex items-center'>
+        <button className={`drag-node cursor-grab material-symbols-outlined f3 gray ${isDragStart ? "visible" : "hidden"}`}>drag_indicator</button>
+    <div className={`run-item flex items-start mv1 pa2 ba br2 bg-white w-full`}>
       <button 
-          className="btn btn-outline btn-small py-0 px-0 leading-none mt1"
+          className="btn btn-outline btn-small py-0 px-0 leading-none mr1"
           onClick={toggleExpand}
           title={isExpanded ? "Hide details" : "Show details"}
         >
@@ -61,8 +64,8 @@ const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp
         </div>
         <div className="w-full">
         <div className={`flex items-center pt1 ${isExpanded ? "hidden" : "flex"}`}>
-            <span className="bg-black-05 text-gray-600 text-xs px-1 py-1 br2 mr2 pipeline-badge code">code: {commitHash}</span>
-            <span className="bg-black-10 black text-xs px-1 py-1 br2 mr2 pipeline-badge ba b--black-20 code">image: {imageVersion}</span>
+            <span className="bg-black-05 text-gray-600 text-xs px-1 py-1 br2 mr2 leading-none  ba b--black-05 code">code: {commitHash}</span>
+            <span className="bg-black-10 black text-xs px-1 py-1 br2 mr2 leading-none  ba b--black-10 code">image: {imageVersion}</span>
             {extraTags && (
               <span className="text-xs px-2 py-1 mr2">{extraTags}</span>
             )}
@@ -129,7 +132,7 @@ const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp
                           <div>Jan 16, 2022</div>
                           <div>10:23:45</div>
                           <div>10:23:45</div>
-                          <div>25 seconds</div>
+                          <div>00h 00m 25s</div>
                         </div>
                       </div>
                     </div>
@@ -191,7 +194,7 @@ const MessageItem = React.memo(({ commitHash, imageVersion, extraTags, timestamp
       
 
       {/* Expanded content */}
-      
+      </div>
     </div>
   );
 });
