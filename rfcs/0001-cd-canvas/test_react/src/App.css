@@ -1063,3 +1063,15 @@ main {
 .material-symbols-outlined.fill {
   font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 20;
 }
+
+/* Add animation for hourglass icon with smooth rotation */
+@keyframes flip-smooth {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+  100% { transform: rotate(180deg); }
+}
+
+.hourglass-flip {
+  animation: flip-smooth 1.5s ease-in-out infinite;
+  transform-origin: center;
+}

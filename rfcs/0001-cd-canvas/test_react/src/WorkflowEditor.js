@@ -526,8 +526,8 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
       return (
         <div className="pv3 ph3">
           <div className='flex items-center justify-between'>
-            <h2 className="f7 mb1 ttu">Recent runs</h2>
-            <button className="btn btn-link blue f5">View all</button>
+            <h2 className="f7 ttu">Recent runs</h2>
+            <button className="btn btn-link dark-indigo btn-small px-0">View all</button>
           </div>
           
           {/* Latest Run */}
@@ -559,7 +559,10 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
           
           
           {/* Queue Section */}
-          <div className="ttu f7 mb1 mt3 mb2">QUEUE (3)</div>
+          <div className='flex items-center justify-between'>
+            <div className="ttu f7 mb1 mt3">QUEUE (3)</div>
+            <button className="btn btn-link dark-indigo btn-small px-0">Manage queue</button>
+          </div>
           <MessageItem
             commitHash="1045a77"
             imageVersion="v.1.2.3"
@@ -936,11 +939,7 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
     <button className="pa0 bg-transparent" onClick={onClose} title="Close sidebar"><i className="material-symbols-outlined">close</i></button>
     </div>
     <div className='f4 px-4 mb2'>
-      <div className="bg-white br2 flex items-center">
-      <img src={semaphore} width={20} className="mx-1"/>
-      <span className="mr1 b">Pipeline</span>
-      <a href="#" className="link dark-indigo underline">Semaphore project/Pipeline name</a>
-      </div>
+      
       <div className="flex items-center hidden">
       <span className="bg-black-05 text-gray-600 text-xs px-1 py-1 br2 mr2 pipeline-badge code">code:adf</span>
               <span className="bg-black-10 black text-xs px-1 py-1 br2 mr2 pipeline-badge ba b--black-20 code">image:adf</span>

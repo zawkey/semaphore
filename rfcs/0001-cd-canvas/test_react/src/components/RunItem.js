@@ -12,7 +12,7 @@ const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, ext
     <div className={`run-item flex items-start mv1 bg-white bb bl br br2 b--lightest-gray`}>
      <div className={`flex w-full items-start pa2  bt ${isHightlighted ? (status.toLowerCase() === 'passed' ? 'bg-washed-green b--green' :  (status.toLowerCase() === 'failed' ? 'bg-washed-red b--red' : "bg-washed-blue b--indigo")) : ''}`}>
       <button 
-          className="btn btn-outline btn-small py-0 px-0 leading-none"
+          className="btn btn-outline btn-small py-0 px-0 leading-none mt1"
           onClick={toggleExpand}
           title={isExpanded ? "Hide details" : "Show details"}
         >
@@ -30,7 +30,7 @@ const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, ext
                 case 'queued':
                   return <span className="material-symbols-outlined fill orange f1 mr1">queue</span>
                 case 'running':
-                  return <span className="br-pill bg-blue w-[22px] h-[22px] b--lightest-blue text-center mr2"><span className="white f4 mr1 job-log-working"></span></span>
+                  return <span className="br-pill bg-blue w-[22px] h-[22px] b--lightest-blue text-center mr2"><span className="white f4 job-log-working"></span></span>
                 default:
                   return null
               }
@@ -63,18 +63,20 @@ const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, ext
                   <p><i className='material-symbols-outlined mr1 text-sm hidden'>schedule</i><strong>Started</strong> Jan 16, 2022 3:54:43 PM {status.toLowerCase() === 'passed' && (<strong>· Finished</strong>+" Jan 16, 2022 3:55:08 PM"+"<strong> · Duration</strong> 25 seconds")}</p>
                   <p className='hidden'><i className='material-symbols-outlined mr1 text-sm'>calendar_month</i>2 days ago</p>
                 </div>
+                <div className="flex items-center text-sm">
+                    <img src={semaphore} width={16} className="mr1"/>
+                    <span className="mr1 b hidden">Pipeline</span>
+                    <a href="#" className="link dark-indigo underline">Semaphore project/Pipeline name</a>
+                  </div>
                 <div className="flex">
-                  <div className="flex items-start">
+                  
+                  <div className="flex items-center mt1">
                   <i className="hidden material-symbols-outlined mr1 text-sm">timer</i>
                     <div className="text-sm">
                       <div className="flex items-center">
-                        <div className="gray">
-                          <div><i className="material-symbols-outlined text-sm">nest_clock_farsight_analog</i></div>
-                          {(status.toLowerCase() === 'passed' || status.toLowerCase() === 'failed') && <div><i className="material-symbols-outlined text-sm">hourglass_bottom</i></div>}
-                        </div>
-                        <div className="ml1">
-                          <div>Jan 16, 2022 10:23:45</div>
-                          {(status.toLowerCase() === 'passed' || status.toLowerCase() === 'failed') && <div>25 seconds</div>}
+                        <div className="flex items-center">
+                          <i className="material-symbols-outlined text-sm gray mr1">nest_clock_farsight_analog</i> Jan 16, 2022 10:23:45
+                          <div className='flex items-center ml3'><i className="material-symbols-outlined text-sm mid-gray mr1">hourglass_bottom</i> 25 seconds</div>
                         </div>
                       </div>
                     </div>
@@ -89,13 +91,13 @@ const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, ext
                       <div className="flex items-center code text-xs">
                         <div className='gray'>
                           <div>Code</div>
-                          <div className='b bg-black-05'>Image</div>
+                          <div className='bg-black-05'>Image</div>
                           <div>Terraform</div>
                           <div>Something</div>
                         </div>
                         <div className=''>
                           <div className='pl2'>1045a77</div>
-                          <div className='b bg-black-05 pl2'>{imageVersion}</div>
+                          <div className='bg-black-05 pl2'>{imageVersion}</div>
                           <div className='pl2'>32.32</div>
                           <div className='pl2'>adsfasdf</div>
                         </div>
@@ -113,13 +115,13 @@ const RunItem = React.memo(({ status, commitTitle, commitHash, imageVersion, ext
                       <div className="flex items-center code text-xs">
                         <div className='gray'>
                           <div>Code</div>
-                          <div className='b bg-black-05'>Image</div>
+                          <div className='bg-black-05'>Image</div>
                           <div>Terraform</div>
                           <div>Something</div>
                         </div>
                         <div className=''>
                           <div className='pl2'>1045a77</div>
-                          <div className='b bg-black-05 pl2'>{imageVersion}</div>
+                          <div className='bg-black-05 pl2'>{imageVersion}</div>
                           <div className='pl2'>32.32</div>
                           <div className='pl2'>adsfasdf</div>
                         </div>
