@@ -459,11 +459,13 @@ const GitHubIntegration = ({ data, selected }) => {
 // Sidebar component to display selected stage details
 const Sidebar = React.memo(({ selectedStage, onClose }) => {
   const [activeTab, setActiveTab] = useState('general');
+  const [viewMode, setViewMode] = useState('form');
   const [width, setWidth] = useState(600);
   const isDragging = useRef(false);
   const sidebarRef = useRef(null);
   const animationFrameRef = useRef(null);
   const [isMsgDragStart, setIsMsgDragStart] = useState(false);
+ 
   const handleMsgDragStart = (e) => {
     e.stopPropagation();
     setIsMsgDragStart(!isMsgDragStart);
@@ -522,14 +524,30 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
   
   // Render the appropriate content based on the active tab
   const renderTabContent = () => {
+    // View mode toggle
+    const viewModeToggle = (
+      <div className="flex items-center justify-between bb b--black-20 pb2">
+        <div className="flex items-center button-group">
+          <button
+            className={`px-3 py-1 rounded btn-small ${viewMode === 'form' ? 'shadow-[inset_0_1px_0_rgba(0,0,0,.05),inset_0_500px_0_0_var(--washed-gray),0_0_0_1px_var(--black-20)]' : 'ba bg-white b--black-20'}`}
+            onClick={() => setViewMode('form')}
+          >
+            Form
+          </button>
+          <button
+            className={`px-3 py-1 rounded btn-small ${viewMode === 'yaml' ? 'shadow-[inset_0_1px_0_rgba(0,0,0,.05),inset_0_500px_0_0_var(--washed-gray),0_0_0_1px_var(--black-20)]' : 'ba bg-white b--black-20'}`}
+            onClick={() => setViewMode('yaml')}
+          >
+            Yaml
+          </button>
+        </div>
+      </div>
+    );
+
     switch (activeTab) {
-      case 'runs':
-        return (
-          <div className="pv3 ph3"></div>
-        );
       case 'general':
       return (
-        <div className="pv3 ph3">
+        <div className="pv2 ph3">
           <div className='flex items-center justify-between'>
             <h2 className="f7 ttu">Recent runs</h2>
             <button className="btn btn-link dark-indigo btn-small px-0">View all</button>
@@ -895,38 +913,161 @@ const Sidebar = React.memo(({ selectedStage, onClose }) => {
       );
       
       case 'settings':
-      return (
-        <div className="pv3 ph4">
-          <div className="flex items-start w-full">
-            
-          </div>
-                <div className='mb1 ttu'>Stage details</div>
-                <div className="flex items-start w-full">
-                  <div className='gray w-1/4'>
-                    <div className=''>Name</div>
-                    <div className=''>ID</div>
+        return (
+          <div className="pv2 ph3 h-full">
+            {viewModeToggle}
+            <div className="bg-white h-full">
+              {viewMode === 'form' ? (
+                <div className='text-sm pa2'>
+                  <div className='pt2 mb2 ttu flex items-center'><i className="material-symbols-outlined mid-gray mr1 text-sm">list_alt</i>Stage details</div>
+                  <div className="space-y-2">
+                    <div className="flex items-start w-full">
+                      <div className='gray w-1/4'>Name</div>
+                      <div className="block w-full">
+                        {selectedStage?.data?.label || ''}
+                      </div>
+                    </div>
+                    <div className="flex items-start w-full">
+                      <div className='gray w-1/4'>ID</div>
+                      <div className="block w-full">
+                        {selectedStage?.id || ''}
+                      </div>
+                    </div>
+                   
                   </div>
-                  <div className=''>
-                    <div className='pl2'>Deploy to Asia cluster</div>
-                    <div className='pl2'>123</div>
+                  <div className='pt2 mb2 ttu flex items-center'><i className="material-symbols-outlined mid-gray mr1 text-sm">trail_length_short</i>Executor</div>
+                  <div className="space-y-2">
+                    <div className="flex items-start w-full">
+                      <div className='gray w-1/4'>Type</div>
+                      <div className="block w-full">
+                        Semaphore
+                      </div>
+                    </div>
+                    <div className="flex items-start w-full">
+                      <div className='gray w-1/4'>Project ID</div>
+                      <div className="block w-full">
+                        1234567890
+                      </div>
+                    </div>
+                    <div className="flex items-start w-full">
+                      <div className='gray w-1/4'>Branch</div>
+                      <div className="block w-full">
+                        main
+                      </div>
+                    </div>
+                    <div className="flex items-start w-full">
+                      <div className='gray w-1/4'>Pipeline file</div>
+                      <div className="block w-full">
+                       .semaphore/pipeline_3.yml
+                      </div>
+                    </div>
+                   
+                  </div>
+                  <div className='mt3 mb2 ttu flex items-center'><i className="material-symbols-outlined mid-gray mr1 text-sm">local_police</i>Gates</div>
+                  <div className="space-y-2">
+                    <div className="flex items-start w-full">
+                      <div className='gray w-1/4'>Manual approval</div>
+                      <div className="block w-full">
+                        True
+                      </div>
+                    </div>
+
+                   
+                  </div>
+                  
+                  <div className='mt3 mb2 ttu flex items-center'><i className="material-symbols-outlined mid-gray mr1 text-sm">link</i>Connections</div>
+                  <div className="space-y-2">
+                    <div className="flex items-start w-full">
+                      <div className='gray w-1/4'>#1</div>
+                      <div className="flex items-center justify-between w-full">
+                        <span className="bg-black-05 h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                          <i className="material-symbols-outlined mr1 text-xs">rocket_launch</i>
+                          Deploy to US East
+                        </span>
+                        <span className='text-xs dark-green '>Stage</span>
+                      </div>
+                     
+                    </div>
+                    <div className="flex items-start w-full">
+                      <div className='gray w-1/4'>#2</div>
+                      <div className="flex items-center justify-between w-full">
+                        <span className="bg-black-05 h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                          <i className="material-symbols-outlined mr1 text-xs">bolt</i>
+                          Github integration
+                        </span>
+                        <span className='text-xs gray'>Event source</span>
+                      </div>
+                     
+                    </div>
+                   
+                  </div>
+                  <div className='mt3 mb2 ttu flex items-center'><i className="material-symbols-outlined mid-gray mr1 text-sm">input</i>Inputs</div>
+                  <div className="space-y-2">
+                    <div className="flex items-start w-full">
+                      <div className='gray w-1/4'>Image</div>
+                      <div className="flex items-center w-full">
+                        <span className="bg-black-05 h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                          <i className="material-symbols-outlined mr1 text-xs">rocket_launch</i>
+                          Deploy to US East
+                        </span>.
+                        <span className="bg-washed-purple h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                          outputs
+                        </span>.
+                        <span className="bg-washed-yellow h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                          IMAGE
+                        </span>
+                      </div>
+                     
+                    </div>
+                    <div className="flex items-start w-full">
+                      <div className='gray w-1/4'>Code</div>
+                      <div className="flex items-center w-full">
+                        <span className="bg-black-05 h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                          <i className="material-symbols-outlined mr1 text-xs">bolt</i>
+                          Github integration
+                        </span>.
+                        <span className="bg-washed-purple h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                          repoName
+                        </span>.
+                        <span className="bg-washed-yellow h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                          REF
+                        </span>
+                      </div>
+                     
+                    </div>
+                   
+                  </div>
+                  <div className='mt3 mb2 ttu flex items-center'><i className="material-symbols-outlined mid-gray mr1 text-sm">output</i>Outputs</div>
+                  <div className="space-y-2">
+                    <div className="flex items-start w-full">
+                      <div className='gray w-1/4'>Image</div>
+                      <div className="flex items-center justify-between w-full">
+                        <div className='flex items-center'>
+                          <span className="h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">this</span>.
+                          <span className="bg-washed-purple h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                            outputs
+                          </span>.
+                          <span className="bg-washed-yellow h-[26px] text-gray-600 text-xs px-1 py-1 br2 leading-none flex items-center ba b--black-05 code">
+                            IMAGE
+                          </span>
+                        </div>
+                        <span className='text-xs dark-red'>required</span>
+                      </div>
+                    </div>
+                    
+                   
                   </div>
                 </div>
-          
-        <h3 className="textg font-semibold mb-3">Settings</h3>
-        <div className="settings-item">
-        <span className="settingsabel">Stage Name</span>
-        <span className="settings-value">{selectedStage.data.label}</span>
-        </div>
-        <div className="settings-item">
-        <span className="settingsabel">Type</span>
-        <span className="settings-value">{selectedStage.type === 'deploymentCard' ? 'Deployment Stage' : 'GitHub Integration'}</span>
-        </div>
-        <div className="settings-item">
-        <span className="settingsabel">Status</span>
-        <span className="settings-value">{selectedStage.data.status}</span>
-        </div>
-        </div>
-      );
+              ) : (
+                <div className="">
+                  <pre className="bg-white p-4 code text-xs">
+                    {JSON.stringify(selectedStage, null, 2)}
+                  </pre>
+                </div>
+              )}
+            </div>
+          </div>
+        );
       
       default:
       return null;
